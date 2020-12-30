@@ -1,2 +1,2 @@
 # my-vim-congfig
-upload my vim config file
+a vim config file
