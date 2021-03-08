@@ -1,5 +1,11 @@
 # Vim Config
 
+## 第一件事
+将Caps键映射为Esc(正常键盘Esc太远了,当然如果是客制化键盘,当我没说)  
+Ubuntu下我用的是一款叫做dconf Editor的软件(当然你也可以用gsetting),Windows就自己改注册表
+下载该软件,然后将找到(1)所在的位置,照着(2)改 
+![alttext](./image/dconf_editor.png)
+
 ## 插件
 * LaTeX(LaTeX入门劝退,不过Tex Gyre Adventor Regular字体挺好看的)
 ```
@@ -76,4 +82,8 @@ Plug 'mzlogin/vim-markdown-toc'
 ```
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 ```
+## 组合键(实在讨厌Ctrl键，太难按了)
+|   作用    |    原生       |   映射  	|
+| ------------- |-------------  | ------- |
+|    切换窗口    |    <kbd>C-W</kbd> + <kbd>hkjl</kbd> |  <kbd>leader</kbd>+<kbd>leader</kbd> + <kbd>hjkl</kbd>
 
