@@ -45,7 +45,7 @@ let g:mapleader = " "
 filetype plugin indent on
 
 "设置ctags
- set tags=/home/lian/OpenCode
+ "set tags=/home/lian/OpenCode
 
 "添加调试
 packadd termdebug
@@ -84,7 +84,7 @@ map <leader>cp :call CompileRunGcc()<cr>
 func! CompileRunGcc()
 	exec "w" 
 	if &filetype == 'c' 
-		exec '!gcc -g -Wal % -o %<.out'
+		exec '!gcc -g -Wall % -o %<.out'
 	elseif &filetype == 'cpp'
 		exec '!g++ -g -Wall % -o %<.out'
 	endif                                                                              
@@ -171,7 +171,6 @@ nnoremap <leader>= gg=G
 "切换窗口
 nnoremap <leader><leader> <c-w>
 
-"关闭buffer
 nnoremap <leader>b :bp<bar>bd #<CR>
 
 "映射space dd 为dd-O
@@ -202,7 +201,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 "LaTeX
-Plug 'lervag/vimtex'
+"Plug 'lervag/vimtex'
 "Plug 'jcf/vim-latex'
 "Plug 'xuhdev/vim-latex-live-preview'
 "Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
@@ -252,34 +251,34 @@ Plug 'plasticboy/vim-markdown'
 Plug 'mzlogin/vim-markdown-toc'
 
 "markdown-preview
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 call plug#end()
 
 "setting
 
 " vimtex配置
-let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
-let g:vimtex_quickfix_mode=0
-let g:vimtex_compiler_latexmk_engines = {'_':'-xelatex'}
-let g:vimtex_compiler_latexrun_engines ={'_':'xelatex'}
-
-set conceallevel=2
-let g:tex_conceal='abdmg'
-
+"let g:tex_flavor='latex'
+"let g:vimtex_view_method='zathura'
+"let g:vimtex_quickfix_mode=0
+"let g:vimtex_compiler_latexmk_engines = {'_':'-xelatex'}
+"let g:vimtex_compiler_latexrun_engines ={'_':'xelatex'}
+"
+"set conceallevel=2
+"let g:tex_conceal='abdmg'
+"
 " vim-latex
 "let g:livepreview_previewer = 'evince' 
 "let g:livepreview_engine = 'xelatex'
 "autocmd filetype tex setl updatetime=1
 
 "tex-conceal
-let g:tex_conceal_frac=1
-set conceallevel=2
-let g:tex_conceal='abdmg'
-let g:tex_superscripts= "[0-9a-zA-W.,:;+-<>/()=]"
-let g:tex_subscripts= "[0-9aehijklmnoprstuvx,+-/().]"
-
+"let g:tex_conceal_frac=1
+"set conceallevel=2
+"let g:tex_conceal='abdmg'
+"let g:tex_superscripts= "[0-9a-zA-W.,:;+-<>/()=]"
+"let g:tex_subscripts= "[0-9aehijklmnoprstuvx,+-/().]"
+"
 "markdown-preview
 let g:mkdp_auto_start = 1
 let g:mkdp_auto_close = 1
