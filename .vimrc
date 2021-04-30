@@ -84,9 +84,9 @@ map <leader>cp :call CompileRunGcc()<cr>
 func! CompileRunGcc()
 	exec "w" 
 	if &filetype == 'c' 
-		exec '!gcc -g -Wall % -o %<.out'
+		exec '!gcc -g -fdiagnostics-color -Wall % -o %<.out'
 	elseif &filetype == 'cpp'
-		exec '!g++ -g -Wall % -o %<.out'
+		exec '!g++ -g -fdiagnostics-color -Wall % -o %<.out'
 	endif                                                                              
 endfunc 
 "终端支持
@@ -97,6 +97,7 @@ nnoremap <leader>tm :term zsh<cr>
 
 "debug布局
 autocmd filetype cpp nnoremap <leader>td :Termdebug<cr>
+autocmd filetype c nnoremap <leader>td :Termdebug<cr>
 
 "终端切换normal模式翻页
 tnoremap jj <c-\><c-n>
@@ -200,11 +201,14 @@ endif
 "--------------------------------------------------------------
 call plug#begin('~/.vim/plugged')
 
+"vim中文手册
+Plug 'yianwillis/vimcdoc'
+
 "LaTeX
-"Plug 'lervag/vimtex'
-"Plug 'jcf/vim-latex'
-"Plug 'xuhdev/vim-latex-live-preview'
-"Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
+Plug 'lervag/vimtex', {'tag': 'v1.6'}
+Plug 'jcf/vim-latex'
+Plug 'xuhdev/vim-latex-live-preview'
+Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 "Plug 'wjakob/wjakob.vim'
 ""
 "代码补全
@@ -251,34 +255,33 @@ Plug 'plasticboy/vim-markdown'
 Plug 'mzlogin/vim-markdown-toc'
 
 "markdown-preview
-"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 call plug#end()
 
 "setting
 
-" vimtex配置
-"let g:tex_flavor='latex'
-"let g:vimtex_view_method='zathura'
-"let g:vimtex_quickfix_mode=0
-"let g:vimtex_compiler_latexmk_engines = {'_':'-xelatex'}
-"let g:vimtex_compiler_latexrun_engines ={'_':'xelatex'}
-"
-"set conceallevel=2
-"let g:tex_conceal='abdmg'
-"
-" vim-latex
-"let g:livepreview_previewer = 'evince' 
-"let g:livepreview_engine = 'xelatex'
-"autocmd filetype tex setl updatetime=1
+"vimtex配置
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_quickfix_mode=0
+let g:vimtex_compiler_latexmk_engines = {'_':'-xelatex'}
+let g:vimtex_compiler_latexrun_engines ={'_':'xelatex'}
+"let g:Tex_CompileRule_pdf = 'xelatex -synctex=1 --interaction=nonstopmode $*'
+
+"vim-latex
+let g:livepreview_previewer = 'zathura' 
+let g:livepreview_engine = 'xelatex'
+autocmd filetype tex setl updatetime=1
 
 "tex-conceal
-"let g:tex_conceal_frac=1
-"set conceallevel=2
-"let g:tex_conceal='abdmg'
-"let g:tex_superscripts= "[0-9a-zA-W.,:;+-<>/()=]"
-"let g:tex_subscripts= "[0-9aehijklmnoprstuvx,+-/().]"
-"
+let g:tex_conceal_frac=1
+set conceallevel=2
+let g:tex_conceal='abdmg'
+let g:tex_superscripts= "[0-9a-zA-W.,:;+-<>/()=]"
+let g:tex_subscripts= "[0-9aehijklmnoprstuvx,+-/().]"
+
 "markdown-preview
 let g:mkdp_auto_start = 1
 let g:mkdp_auto_close = 1
@@ -423,6 +426,7 @@ let g:coc_global_extensions = [
 			\'coc-highlight',
 			\'coc-explorer',
 			\'coc-json',
+			\'coc-word',
 			\'coc-vimtex'
 			\]
 
@@ -481,10 +485,9 @@ endif
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 			\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+"使用<leader>ek和<leader>ej上下定位错误
+nmap <silent> <leader>ek <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>ej <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
