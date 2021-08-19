@@ -1,4 +1,5 @@
- "General settings
+"General settings
+
 "------------------------------------------
 "编码格式
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
@@ -45,7 +46,7 @@ let g:mapleader = " "
 filetype plugin indent on
 
 "设置ctags
- "set tags=/home/lian/OpenCode
+"set tags=/home/lian/OpenCode
 
 "添加调试
 packadd termdebug
@@ -123,9 +124,9 @@ cmap '' ''<left>
 cmap <> <><left>
 
 "大小写转换
-nmap <leader>u guaw
-nmap <leader>u guaw
-
+"nmap <leader>U gUaw
+"nmap <leader>u guaw
+"
 nmap <leader>tex :LLPStartPreview<cr>
 
 "设置快速退出
@@ -153,15 +154,15 @@ nnoremap <leader>q :q!<CR>
 
 "打开.vimrc
 nnoremap <leader>m :vsplit $MYVIMRC<cr>
-nnoremap <leader>r :source $MYVIMRC<cr>
+nnoremap <leader>c :source $MYVIMRC<cr>
 
 "切换buff
 nnoremap <leader>h :bp<CR>
 nnoremap <leader>l :bn<CR>
 
 "行首行尾
-nnoremap <leader>hh ^
-nnoremap <leader>ll $
+nnoremap <leader><leader>h ^
+nnoremap <leader><leader>l $
 
 "取消搜索高亮
 nnoremap <leader>nh :nohlsearch<cr>
@@ -170,7 +171,7 @@ nnoremap <leader>nh :nohlsearch<cr>
 nnoremap <leader>= gg=G
 
 "切换窗口
-nnoremap <leader><leader> <c-w>
+"nnoremap <leader><leader> <c-w>
 
 nnoremap <leader>b :bp<bar>bd #<CR>
 
@@ -199,14 +200,36 @@ endif
 "
 "Plugin settings
 "--------------------------------------------------------------
+"
+
 call plug#begin('~/.vim/plugged')
+
+"deus themes
+Plug 'ajmwagar/vim-deus'
+"variable-color
+Plug 'jaxbot/semantic-highlight.vim'
+
+"icons 
+Plug 'ryanoasis/vim-devicons'
+
+"vim translater
+Plug 'ianva/vim-youdao-translater'
+
+"c++高亮
+Plug 'octol/vim-cpp-enhanced-highlight'
+
+"缩进显示
+Plug 'yggdroot/indentline'
+
+"vim背景集合
+"Plug 'flazz/vim-colorschemes'
 
 "vim中文手册
 Plug 'yianwillis/vimcdoc'
 
 "LaTeX
 Plug 'lervag/vimtex', {'tag': 'v1.6'}
-Plug 'jcf/vim-latex'
+"Plug 'jcf/vim-latex'
 Plug 'xuhdev/vim-latex-live-preview'
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 "Plug 'wjakob/wjakob.vim'
@@ -232,7 +255,7 @@ Plug 'SirVer/ultisnips'
 Plug 'vim-airline/vim-airline'
 "Plug 'vim-airline/vim-airline-themes'
 
-"Plug 'preservim/nerdtree'"文件树
+Plug 'preservim/nerdtree'
 
 "快速注释
 Plug 'preservim/nerdcommenter'
@@ -259,7 +282,102 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 
 call plug#end()
 
-"setting
+"color setting
+"------------------------------------------
+
+"for vim 7
+set t_Co=256
+
+"for vim 8
+if (has("termguicolors"))
+	set termguicolors
+endif
+
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+
+" For Neovim 0.1.3 and 0.1.4
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+" Or if you have Neovim >= 0.1.5
+if (has("termguicolors"))
+	set termguicolors
+endif
+syntax enable
+
+"gruvboxThrme
+
+"set bg=dark
+
+" Theme
+"colorscheme deus
+"colorscheme gruvbox
+"colorscheme molokai
+colorscheme OceanicNext
+
+"setting------------------------------------
+"semantic setiing
+nnoremap <Leader>s :SemanticHighlightToggle<cr>
+
+
+"translator setting
+vnoremap <silent> <C-T> :<C-u>Ydv<CR>
+nnoremap <silent> <C-T> :<C-u>Ydc<CR>
+noremap <leader>yd :<C-u>Yde<CR>
+
+" NOTE: do NOT use `nore` mappings
+" popup
+nmap <Leader>t <Plug>(coc-translator-p)
+vmap <Leader>t <Plug>(coc-translator-pv)
+" echo
+nmap <Leader>e <Plug>(coc-translator-e)
+vmap <Leader>e <Plug>(coc-translator-ev)
+" replace
+nmap <Leader>r <Plug>(coc-translator-r)
+vmap <Leader>r <Plug>(coc-translator-rv)
+
+"cpp-highlight
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_posix_standard = 1
+let g:cpp_experimental_template_highlight = 1
+let g:cpp_concepts_highlight = 1
+let c_no_curly_error=1
+
+
+
+"rainbow setting
+let g:rainbow_active = 1
+
+let g:rainbow_conf = {
+			\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+			\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+			\	'operators': '_,_',
+			\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+			\	'separately': {
+			\		'*': {},
+			\		'tex': {
+			\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+			\		},
+			\		'lisp': {
+			\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+			\		},
+			\		'vim': {
+			\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+			\		},
+			\		'html': {
+			\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+			\		},
+			\		'css': 0,
+			\	}
+			\}
+
+
+
+"indentline setting
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_defaultGroup = 'SpecialKey'
 
 "vimtex配置
 let g:tex_flavor='latex'
@@ -271,9 +389,9 @@ let g:vimtex_compiler_latexrun_engines ={'_':'xelatex'}
 "let g:Tex_CompileRule_pdf = 'xelatex -synctex=1 --interaction=nonstopmode $*'
 
 "vim-latex
-let g:livepreview_previewer = 'zathura' 
-let g:livepreview_engine = 'xelatex'
-autocmd filetype tex setl updatetime=1
+"let g:livepreview_previewer = 'zathura' 
+"let g:livepreview_engine = 'xelatex'
+"autocmd filetype tex setl updatetime=1
 
 "tex-conceal
 let g:tex_conceal_frac=1
@@ -281,7 +399,6 @@ set conceallevel=2
 let g:tex_conceal='abdmg'
 let g:tex_superscripts= "[0-9a-zA-W.,:;+-<>/()=]"
 let g:tex_subscripts= "[0-9aehijklmnoprstuvx,+-/().]"
-
 "markdown-preview
 let g:mkdp_auto_start = 1
 let g:mkdp_auto_close = 1
@@ -293,18 +410,18 @@ let g:mkdp_browser = 'google-chrome'
 let g:mkdp_echo_preview_url = 0
 let g:mkdp_browserfunc = ''
 let g:mkdp_preview_options = {
-    \ 'mkit': {},
-    \ 'katex': {},
-    \ 'uml': {},
-    \ 'maid': {},
-    \ 'disable_sync_scroll': 0,
-    \ 'sync_scroll_type': 'middle',
-    \ 'hide_yaml_meta': 1,
-    \ 'sequence_diagrams': {},
-    \ 'flowchart_diagrams': {},
-    \ 'content_editable': v:false,
-    \ 'disable_filename': 0
-    \ }
+			\ 'mkit': {},
+			\ 'katex': {},
+			\ 'uml': {},
+			\ 'maid': {},
+			\ 'disable_sync_scroll': 0,
+			\ 'sync_scroll_type': 'middle',
+			\ 'hide_yaml_meta': 1,
+			\ 'sequence_diagrams': {},
+			\ 'flowchart_diagrams': {},
+			\ 'content_editable': v:false,
+			\ 'disable_filename': 0
+			\ }
 let g:mkdp_markdown_css = ''
 let g:mkdp_highlight_css = ''
 let g:mkdp_port = ''
@@ -380,8 +497,8 @@ let g:startify_custom_header = [
 "打开nerdtree,光标在文件上
 "autocmd VimEnter * NERDTree | wincmd p
 ""退出nerdtree
-"autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
-"    \ quit | endif
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+	\ quit | endif
 "
 "vim-airline
 "顶部开启airline
@@ -395,43 +512,31 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 "tab键切换文件
 nmap <tab> :bn<cr>
 
-"oceanicTheme
-syntax enable
-"for vim 7
-set t_Co=256
-
-"for vim 8
-if (has("termguicolors"))
-	set termguicolors
-endif
-
-colorscheme OceanicNext
-
-"gruvboxThrme
-"syntax enable
-"set bg=dark
-"colorscheme gruvbox
-"
 "vim-snips
 let g:UltiSnipsExpandTrigger="<c-g>"
 let g:UltiSnipsJumpForwardTrigger="<c-h>"
 let g:UltiSnipsJumpBackwardTrigger="<c-l>"
 "let g:UltiSnipsSnippetDirectories=["~/.vim/plugged/vim-snippets/snippets"]
 
-"coc 插件配置(官网推荐配置)
+"coc 插件配置
 let g:coc_global_extensions = [
 			\'coc-python',
+			\'coc-vimlsp',
 			\'coc-clangd',
 			\'coc-html',
 			\'coc-highlight',
-			\'coc-explorer',
 			\'coc-json',
 			\'coc-word',
-			\'coc-vimtex'
+			\'coc-vimtex',
+			\'coc-marketplace',
+			\'coc-translator',
+			\'coc-cmake',
+			\'coc-yaml',
+			\'coc-java'
 			\]
 
 "coc-explorer 键位映射
-nnoremap <leader>s :CocCommand explorer<CR>
+"nnoremap <leader>s :CocCommand explorer<CR>
 
 " TextEdit might fail if hidden is not set.
 "set hidden
