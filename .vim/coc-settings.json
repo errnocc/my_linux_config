@@ -1,0 +1,26 @@
+{
+	"coc.preferences.extensionUpdateCheck": "daily",
+	"suggest.noselect": true,
+	"suggest.enablePreselect": false,
+	"clangd.arguments": [
+		"-header-insertion=never"
+	],
+	"coc.preferences.formatOnSaveFiletypes": [
+		"json",
+		"python"
+	],
+	"languageserver": {
+		"cmake": {
+			"command": "cmake-language-server",
+			"filetypes": [
+				"cmake"
+			],
+			"rootPatterns": [
+				"build/"
+			],
+			"initializationOptions": {
+				"buildDirectory": "build"
+			}
+		}
+	}
+}

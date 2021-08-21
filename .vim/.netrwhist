@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/home/errno/sourcecode/dmenu'
+let g:netrw_dirhist_5='/home/errno/sourcecode/dotfiles/.config/xmobar'
+let g:netrw_dirhist_4='/home/errno/.config/xmobar'
+let g:netrw_dirhist_3='/home/errno/code/c'
+let g:netrw_dirhist_2='/home/errno/code'
+let g:netrw_dirhist_1='/home/errno/code/c'
