@@ -6,6 +6,10 @@ set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
 
+
+set t_md=
+"hi manBold ctermfg=NONE ctermbg=NONE cterm=NONE gui=NONE
+
 "显示行号
 set number
 
@@ -27,8 +31,10 @@ set autoindent
 set ignorecase
 
 "打开高亮
-syntax on
+"syntax on
 
+"设置光标的为方块
+set guicursor=i-ci:block-Cursor/lCursor,
 "打开拼写检查
 "setlocal spell spelllang=en_us
 "设置粘贴模式(自动缩进失效)
@@ -52,11 +58,12 @@ filetype plugin indent on
 packadd termdebug
 
 "允许鼠标
-"set mouse=a
+set mouse=a
 "显示状态栏
 set laststatus=2
 "终端开启256色彩支持
 set t_Co=256
+set termguicolors
 "命令行显示输入的命令
 set showcmd
 
@@ -128,7 +135,7 @@ nmap <leader>u guaw
 nmap <leader>u guaw
 
 nmap <leader>tex :LLPStartPreview<cr>
-
+ 
 "设置快速退出
 map <leader>wq :wq<cr>
 
@@ -146,15 +153,15 @@ nnoremap <leader>o <c-o>
 "nnoremap <leader>td :termdebug<cr>
 
 "翻页
-nnoremap <leader>j <c-f>
-nnoremap <leader>k <c-b>
+"nnoremap <leader>j <c-f>
+"nnoremap <leader>k <c-b>
 
 "关闭vim
 nnoremap <leader>q :q!<CR>
 
 "打开.vimrc
 nnoremap <leader>m :vsplit $MYVIMRC<cr>
-nnoremap <leader>r :source $MYVIMRC<cr>
+nnoremap <leader>v :source $MYVIMRC<cr>
 
 "切换buff
 nnoremap <leader>h :bp<CR>
@@ -204,15 +211,20 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+"vim-smoothie
+Plug 'psliwka/vim-smoothie'
+
+"deus themes
 Plug 'ajmwagar/vim-deus'
+
 "variable-color
 Plug 'jaxbot/semantic-highlight.vim'
 
-"icons 
+
+"icon
 Plug 'ryanoasis/vim-devicons'
 
-
-"vim translater
+"translate
 Plug 'ianva/vim-youdao-translater'
 
 "c++高亮
@@ -229,7 +241,7 @@ Plug 'yianwillis/vimcdoc'
 
 "LaTeX
 Plug 'lervag/vimtex', {'tag': 'v1.6'}
-Plug 'jcf/vim-latex'
+"Plug 'jcf/vim-latex'
 Plug 'xuhdev/vim-latex-live-preview'
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 "Plug 'wjakob/wjakob.vim'
@@ -246,6 +258,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "代码风格
 Plug 'mhartington/oceanic-next'
 Plug 'morhetz/gruvbox'
+Plug 'ajmwagar/vim-deus'
 
 "代码小片段
 Plug 'honza/vim-snippets'
@@ -253,9 +266,11 @@ Plug 'SirVer/ultisnips'
 
 "状态栏
 Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-themes'
+"Plug 'liuchengxu/eleline.vim'
 
-"Plug 'preservim/nerdtree'"文件树
+"文件树
+Plug 'preservim/nerdtree'
 
 "快速注释
 Plug 'preservim/nerdcommenter'
@@ -284,36 +299,66 @@ call plug#end()
 
 "color setting
 "------------------------------------------
+"let g:neoterm_autoscroll = 1
+"autocmd TermOpen term://* startinsert
+"tnoremap <C-N> <C-\><C-N>
+"tnoremap <C-O> <C-\><C-N><C-O>
+"let g:terminal_color_0  = '#000000'
+"let g:terminal_color_1  = '#FF5555'
+"let g:terminal_color_2  = '#50FA7B'
+"let g:terminal_color_3  = '#F1FA8C'
+"let g:terminal_color_4  = '#BD93F9'
+"let g:terminal_color_5  = '#FF79C6'
+"let g:terminal_color_6  = '#8BE9FD'
+"let g:terminal_color_7  = '#BFBFBF'
+"let g:terminal_color_8  = '#4D4D4D'
+"let g:terminal_color_9  = '#FF6E67'
+"let g:terminal_color_10 = '#5AF78E'
+"let g:terminal_color_11 = '#F4F99D'
+"let g:terminal_color_12 = '#CAA9FA'
+"let g:terminal_color_13 = '#FF92D0'
+"let g:terminal_color_14 = '#9AEDFE'
+"启用粗体和斜体
+"let g:oceanic_next_terminal_bold = 1
+"let g:oceanic_next_terminal_italic = 1
+let g:one_allow_italics = 1
+" Or if you have Neovim >= 0.1.5
+"if (has("termguicolors"))
+" set termguicolors
+"endif
+"if (has("termguicolors"))
+  "set termguicolors
+"endif
+"gruvboxThrme
+"set bg=dark
+
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc[48;2;%lu;%lu;%lum"
+set background=dark   " Setting dark mode
+let g:deus_termcolors=256
+
+colorscheme deus
 "colorscheme gruvbox
+"syntax enable
 "colorscheme OceanicNext
 "colorscheme molokai
-
-syntax enable
-
-"for vim 7
-set t_Co=256
-
-"for vim 8
-if (has("termguicolors"))
-	set termguicolors
-endif
-
-"let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-
-
-"gruvboxThrme
-set bg=dark
+let g:airline_theme = 'bubblegum'
 
 "setting------------------------------------
+"
 "semantic setiing
+"autocmd BufEnter * SemanticHighlight
+"autocmd BufWritePost * SemanticHighlight
 nnoremap <Leader>s :SemanticHighlightToggle<cr>
 
-"translator setting
+"vim-translate
 vnoremap <silent> <C-T> :<C-u>Ydv<CR>
 nnoremap <silent> <C-T> :<C-u>Ydc<CR>
 noremap <leader>yd :<C-u>Yde<CR>
 
+" NOTE: do NOT use `nore` mappings
+" popup
 nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
 " echo
@@ -323,6 +368,8 @@ vmap <Leader>e <Plug>(coc-translator-ev)
 nmap <Leader>r <Plug>(coc-translator-r)
 vmap <Leader>r <Plug>(coc-translator-rv)
 
+
+
 "cpp-highlight
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
@@ -331,7 +378,6 @@ let g:cpp_posix_standard = 1
 let g:cpp_experimental_template_highlight = 1
 let g:cpp_concepts_highlight = 1
 let c_no_curly_error=1
-
 
 
 "rainbow setting
@@ -448,7 +494,7 @@ let g:rainbow_active = 1
 "\}
 ""nerdcommenter配置
 "创建默认映射
-let g:NERDCreateDefaultMappings = 1
+let g:NERDCreateDefaultMappings = 1 
 "默认情况下在注释定界符后添加空格
 "let g:NERDSpaceDelims = 1 
 "对紧凑的多行注释不使用紧凑语法
@@ -486,16 +532,18 @@ let g:startify_custom_header = [
 "autocmd VimEnter * NERDTree | wincmd p
 ""退出nerdtree
 "autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
-"    \ quit | endif
+	"\ quit | endif
 "
 "vim-airline
 "顶部开启airline
+"let g:airline_theme='oceanicnext'
+let g:airline_theme='deus'
+let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
 "airline格式
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-"let g:airline_theme='deus'
 "let g:airline_theme='light'
 "tab键切换文件
 nmap <tab> :bn<cr>
@@ -513,15 +561,16 @@ let g:coc_global_extensions = [
 			\'coc-clangd',
 			\'coc-html',
 			\'coc-highlight',
-			\'coc-explorer',
 			\'coc-json',
 			\'coc-word',
 			\'coc-vimtex',
-			\'coc-marketplace'
+			\'coc-marketplace',
+			\'coc-translator',
+			\'coc-sh'
 			\]
 
 "coc-explorer 键位映射
-nnoremap <leader>s :CocCommand explorer<CR>
+"nnoremap <leader>s :CocCommand explorer<CR>
 
 " TextEdit might fail if hidden is not set.
 "set hidden
