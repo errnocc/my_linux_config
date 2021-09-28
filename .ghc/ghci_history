@@ -1,0 +1,100 @@
+:q
+5 /=5
+5 ==5
+:t (==)
+:t fst
+circumference' 4.0
+:e
+circumference' 4.0
+:e
+:e
+:t (==)
+:t fst
+:t head
+:t ()
+factorial 50
+factorial 10
+:e
+:e
+:e
+addThree 1 2 3
+add 1 2 
+add 1 2 3
+:e
+:t addThree 
+:e
+:e
+:e
+:e
+:t add
+:e
+Le
+:t removeNonUppercase 
+:l doubleMe.hs 
+:cd ~/code/haskell/
+:q
+:t ['h','a']
+:t ["lianhao"]
+:t (True, 'a')
+:t (Ture, 'a')
+:t (Ture, 'a']
+:t [1,2,3,4]
+:t True
+:t Ture
+:t 1.0
+:t "lianhao"
+:t 'a'
+rightTriangle' 
+:e
+rightTriangle' 
+:e
+:e
+triangles 
+:e
+zip [1,2,3,4] ['f', 's' , 't', 'q']
+zip [1,2,3,4] ['f', 's' , 't', "four"]
+fst ("Wow", False, True)
+fst ("Wow", False, True]
+fst ("Wow", False)
+fst (8,11)
+[(1,2), (3,4,5)]
+:e
+:e
+:e
+removeNonUppercase "Hahahha! Ahahahah!"
+:e
+:l doubleMe.hs 
+:cd ~/code/haskell/
+:q
+[[ x | x <- xs, even x] | xs <- xxs]
+[[ x | x <- xs, even x] | xs < - xxs]
+:e
+ :e
+:e
+:e
+:? even
+lenth' [1,3,4,5,6]
+:e
+:l doubleMe.hs 
+:cd ~/code/haskell/
+[ x*y | x <- [2,5,10], y <- [8,10,11]]
+:q
+:q
+[x | x <- [10..20], x /= 13, x /= 15, x /= 19]
+odd 1
+odd [1,23,5,6,3]
+boomBangs [7..13]
+:e
+:l doubleMe.hs 
+:l HalloWorld.hs 
+:cd ~/code/haskell/
+cd ~/code
+:?
+:pwd
+:e
+[x * 2 | x <- [1..10], x `mod` 3 == 2]
+[x * 2 | x <- [1..10], x `mod` 3 == 2]]
+[x * 2 | x <- [1..10], x * 2 >= 12]
+[x * 2 | x <- [1..10]]
+:q
+replicate 2 "lian"

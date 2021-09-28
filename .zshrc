@@ -8,8 +8,9 @@ export ZSH=$HOME/.oh-my-zsh
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="simple"
+#ZSH_THEME="simple"
 
+ZSH_THEME=maran
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -76,12 +77,60 @@ plugins=(
 		z
 		sudo
 		zsh-autosuggestions
+		extract
 	)
 
 source $ZSH/oh-my-zsh.sh
 #source ~/.oh-my-zsh/custom/plugins/incr/incr-0.2.zsh
 
+#java algs4
+export CLASSPATH=$CLASSPATH:/usr/local/lift/lib/algs4.jar:/usr/local/lift/lib/stdlib.jar:/usr/local/lift/lib/introcs.jar
+
+export PATH=$PATH:/usr/local/node/bin
+# Add TeX Live to the PATH, MANPATH, INFOPATH
+#export PATH=/usr/local/texlive/2021/bin/x86_64-linux:$PATH
+#export MANPATH=/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH
+#export INFOPATH=/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH
+export RANGER_LOAD_DEFULT_RC=FALSE
+export TERM_ITALICS=true
+
+#gcc-11.1
+export PATH=/usr/local/gcc-11.1.0/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/gcc-11.1.0/lib64:$LD_LIBRARY_PATH
+
+# To let CMake know
+export CC=/usr/local/gcc-11.1.0/bin/gcc-11.1
+export CXX=/usr/local/gcc-11.1.0/bin/g++-11.1
+#export FC=/usr/local/gcc-11.1.0/bin/gfortran-11.1
+
+# custom script
+export PATH=/home/errno/code/script/:$PATH
+#baidunetdisk
+export PATH=/opt/baidunetdisk:$PATH
+#export DISPLAY=:0
+
+#color-script
+#colorscript random
+
+#00default.sh
+
+#export http_proxy="http://127.0.0.1:7890"
+#export https_proxy="http://127.0.0.1:7890"
+#screenfetch
+ 
 bindkey '^ ' autosuggest-accept
+
+
+#ranger
+#keyword mapping
+#xmodmap ~/.Xmodmap
+#safe-rm
+#alias rm='/usr/bin/safe-rm'
+#rename vim to nvim
+alias vim=nvim
+alias gcc=gcc-11.1
+alias g++=g++-11.1
+#alias gdb='gdbtui -q'
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -93,7 +142,7 @@ bindkey '^ ' autosuggest-accept
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
@@ -108,3 +157,5 @@ bindkey '^ ' autosuggest-accept
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export EDITOR=/usr/bin/vim
+#sudo systemctl restart clash@errno.service
+#ranger 
