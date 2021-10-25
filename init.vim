@@ -3,6 +3,7 @@
 "------------------------------------------
 "编码格式
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+set guifont=SauceCodePro Nerd Font:h15
 set termencoding=utf-8
 set encoding=utf-8
 
@@ -75,6 +76,8 @@ set incsearch
 "高亮度搜寻
 set hlsearch
 
+"nvim cursor
+let g:neovide_cursor_vfx_mode = "railgun"
 "将新创建的窗口放在当前窗口下面
 set splitbelow
 
