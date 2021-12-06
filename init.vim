@@ -3,9 +3,12 @@
 "------------------------------------------
 "编码格式
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
-set guifont=SauceCodePro Nerd Font:h15
 set termencoding=utf-8
 set encoding=utf-8
+
+
+set t_md=
+"hi manBold ctermfg=NONE ctermbg=NONE cterm=NONE gui=NONE
 
 "显示行号
 set number
@@ -28,8 +31,10 @@ set autoindent
 set ignorecase
 
 "打开高亮
-syntax on
+"syntax on
 
+"设置光标的为方块
+set guicursor=i-ci:block-Cursor/lCursor,
 "打开拼写检查
 "setlocal spell spelllang=en_us
 "设置粘贴模式(自动缩进失效)
@@ -53,11 +58,12 @@ filetype plugin indent on
 packadd termdebug
 
 "允许鼠标
-"set mouse=a
+set mouse=a
 "显示状态栏
 set laststatus=2
 "终端开启256色彩支持
 set t_Co=256
+set termguicolors
 "命令行显示输入的命令
 set showcmd
 
@@ -76,8 +82,6 @@ set incsearch
 "高亮度搜寻
 set hlsearch
 
-"nvim cursor
-let g:neovide_cursor_vfx_mode = "railgun"
 "将新创建的窗口放在当前窗口下面
 set splitbelow
 
@@ -94,8 +98,12 @@ func! CompileRunGcc()
 	endif                                                                              
 endfunc 
 "终端支持
-nnoremap <leader>tm :term zsh<cr>
+nnoremap <leader>tm :call Terminal()<cr>a
 
+function Terminal()
+	exec 'new zsh | resize 10 | term zsh'
+endfunction
+"自动打开终端
 "termdebug切换窗口
 "tnoremap <leader><leader> <c-w>
 
@@ -131,7 +139,7 @@ nmap <leader>u guaw
 nmap <leader>u guaw
 
 nmap <leader>tex :LLPStartPreview<cr>
-
+ 
 "设置快速退出
 map <leader>wq :wq<cr>
 
@@ -146,18 +154,18 @@ nnoremap <leader>i <c-i>
 nnoremap <leader>o <c-o>
 
 "debug
-"nnoremap <leader>td :termdebug<cr>
+nnoremap <leader>td :termdebug<cr>
 
-"翻页
-nnoremap <leader>j <c-f>
-nnoremap <leader>k <c-b>
+"翻页(disused)
+"nnoremap <leader>j <c-f>
+"nnoremap <leader>k <c-b>
 
 "关闭vim
-nnoremap <leader>q :q!<CR>
+"nnoremap <leader>q :q!<CR>
 
 "打开.vimrc
 nnoremap <leader>m :vsplit $MYVIMRC<cr>
-nnoremap <leader>r :source $MYVIMRC<cr>
+nnoremap <leader>v :source $MYVIMRC<cr>
 
 "切换buff
 nnoremap <leader>h :bp<CR>
@@ -207,20 +215,55 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+
+
+"table mode
+Plug 'dhruvasagar/vim-table-mode'
+
+"vim debuger
+Plug 'puremourning/vimspector'
+
+"sudo vim
+Plug 'lambdalisue/suda.vim'
+"multiple cursor
+Plug 'terryma/vim-multiple-cursors'
+
+"bing mode
+Plug 'junegunn/goyo.vim'
+
+"code-block option
+Plug 'tpope/vim-surround'
+Plug 'gcmt/wildfire.vim'
+
+"variable align
+Plug 'junegunn/vim-easy-align'
+
+"racket syntax highlight support
+Plug 'wlangstroth/vim-racket'
+"vista.vim
+Plug 'liuchengxu/vista.vim'
+
+"vim-smoothie 平滑移动
+Plug 'psliwka/vim-smoothie'
+
+"deus themes
 Plug 'ajmwagar/vim-deus'
+
 "variable-color
 Plug 'jaxbot/semantic-highlight.vim'
 
-"icons 
+
+"icon
 Plug 'ryanoasis/vim-devicons'
 
-
-"vim translater
-Plug 'ianva/vim-youdao-translater'
+"translate(replaced by coc-translate)
+"Plug 'ianva/vim-youdao-translater'
 
 "c++高亮
 Plug 'octol/vim-cpp-enhanced-highlight'
-
+"Plug 'neovim/nvim-lsp'
+"Plug 'jackguo380/vim-lsp-cxx-highlight'
+"
 "缩进显示
 Plug 'yggdroot/indentline'
 
@@ -232,7 +275,7 @@ Plug 'yianwillis/vimcdoc'
 
 "LaTeX
 Plug 'lervag/vimtex', {'tag': 'v1.6'}
-Plug 'jcf/vim-latex'
+"Plug 'jcf/vim-latex'
 Plug 'xuhdev/vim-latex-live-preview'
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 "Plug 'wjakob/wjakob.vim'
@@ -249,16 +292,19 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "代码风格
 Plug 'mhartington/oceanic-next'
 Plug 'morhetz/gruvbox'
-
+Plug 'ajmwagar/vim-deus'
+"Plug 'mangeshrex/uwu.vim'
 "代码小片段
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 
 "状态栏
 Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-themes'
+"Plug 'liuchengxu/eleline.vim'
 
-"Plug 'preservim/nerdtree'"文件树
+"文件树
+Plug 'preservim/nerdtree'
 
 "快速注释
 Plug 'preservim/nerdcommenter'
@@ -287,36 +333,169 @@ call plug#end()
 
 "color setting
 "------------------------------------------
+"forbidden ~
+autocmd VimEnter * hi NonText guifg=bg
+"let g:neoterm_autoscroll = 1
+"autocmd TermOpen term://* startinsert
+"tnoremap <C-N> <C-\><C-N>
+"tnoremap <C-O> <C-\><C-N><C-O>
+let g:terminal_color_0  = '#000000'
+let g:terminal_color_1  = '#FF5555'
+let g:terminal_color_2  = '#50FA7B'
+let g:terminal_color_3  = '#F1FA8C'
+let g:terminal_color_4  = '#BD93F9'
+let g:terminal_color_5  = '#FF79C6'
+let g:terminal_color_6  = '#8BE9FD'
+let g:terminal_color_7  = '#BFBFBF'
+let g:terminal_color_8  = '#4D4D4D'
+let g:terminal_color_9  = '#FF6E67'
+let g:terminal_color_10 = '#5AF78E'
+let g:terminal_color_11 = '#F4F99D'
+let g:terminal_color_12 = '#CAA9FA'
+let g:terminal_color_13 = '#FF92D0'
+let g:terminal_color_14 = '#9AEDFE'
+"启用粗体和斜体
+"let g:oceanic_next_terminal_bold = 1
+"let g:oceanic_next_terminal_italic = 1
+let g:one_allow_italics = 1
+" Or if you have Neovim >= 0.1.5
+"if (has("termguicolors"))
+" set termguicolors
+"endif
+"if (has("termguicolors"))
+  "set termguicolors
+"endif
+"gruvboxThrme
+"set bg=dark
+
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc[48;2;%lu;%lu;%lum"
+set background=dark   " dark mode
+let g:deus_termcolors=256
+
+colorscheme deus
 "colorscheme gruvbox
+"colorscheme uwu
+"syntax enable
 "colorscheme OceanicNext
 "colorscheme molokai
-
-syntax enable
-
-"for vim 7
-set t_Co=256
-
-"for vim 8
-if (has("termguicolors"))
-	set termguicolors
-endif
-
-"let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-
-
-"gruvboxThrme
-set bg=dark
+let g:airline_theme = 'bubblegum'
 
 "setting------------------------------------
+"
+"vim-esay-align config
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+"wildfire config
+" This selects the next closest text object.
+"map <SPACE> <Plug>(wildfire-fuel)
+" This selects the previous closest text object.
+"vmap <C-SPACE> <Plug>(wildfire-water)
+
+
+" haskell-vim config
+filetype plugin indent on
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+" cscope setting
+
+if has("cscope")
+   set csprg=/usr/bin/cscope              "指定用来执行 cscope 的命令
+   set csto=1                             "先搜索tags标签文件，再搜索cscope数据库
+   set cst                                "使用|:cstag|(:cs find g)，而不是缺省的:tag
+   set nocsverb                           "不显示添加数据库是否成功
+   " add any database in current directory
+   if filereadable("cscope.out")
+	  cs add cscope.out                   "添加cscope数据库
+   endif
+   set csverb                             "显示添加成功与否
+endif
+
+nmap <C-@>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-@>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-@>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-@>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-@>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-@>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-@>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-@>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+"vista.vim
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+" How each level is indented and what to prepend.
+" This could make the display more compact or more spacious.
+" e.g., more compact: ["▸ ", ""]
+" Note: this option only works for the kind renderer, not the tree renderer.
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+
+" Executive used when opening vista sidebar without specifying it.
+" See all the avaliable executives via `:echo g:vista#executives`.
+let g:vista_default_executive = 'coc'
+
+" Set the executive for some filetypes explicitly. Use the explicit executive
+" instead of the default one for these filetypes when using `:Vista` without
+" specifying the executive.
+let g:vista_executive_for = {
+  \ 'cpp': 'coc',
+  \ 'c': 'coc',
+  \ }
+
+" Declare the command including the executable and options used to generate ctags output
+" for some certain filetypes.The file path will be appened to your custom command.
+" For example:
+let g:vista_ctags_cmd = {
+      \ 'haskell': 'hasktags -x -o - -c',
+      \ }
+
+" To enable fzf's preview window set g:vista_fzf_preview.
+" The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
+" For example:
+let g:vista_fzf_preview = ['right:50%']
+
+" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
+let g:vista#renderer#enable_icon = 1
+
+" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\u1793",
+\  }
+
+
 "semantic setiing
+"autocmd BufEnter * SemanticHighlight
+"autocmd BufWritePost * SemanticHighlight
 nnoremap <Leader>s :SemanticHighlightToggle<cr>
 
-"translator setting
-vnoremap <silent> <C-T> :<C-u>Ydv<CR>
-nnoremap <silent> <C-T> :<C-u>Ydc<CR>
-noremap <leader>yd :<C-u>Yde<CR>
-
+"vim-translate
+"vnoremap <silent> <C-T> :<C-u>Ydv<CR>
+"nnoremap <silent> <C-T> :<C-u>Ydc<CR>
+"noremap <leader>yd :<C-u>Yde<CR>
+"
+" NOTE: do NOT use `nore` mappings
+" popup
 nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
 " echo
@@ -326,6 +505,8 @@ vmap <Leader>e <Plug>(coc-translator-ev)
 nmap <Leader>r <Plug>(coc-translator-r)
 vmap <Leader>r <Plug>(coc-translator-rv)
 
+"
+
 "cpp-highlight
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
@@ -334,7 +515,6 @@ let g:cpp_posix_standard = 1
 let g:cpp_experimental_template_highlight = 1
 let g:cpp_concepts_highlight = 1
 let c_no_curly_error=1
-
 
 
 "rainbow setting
@@ -419,6 +599,9 @@ let g:mkdp_port = ''
 let g:mkdp_page_title = '「${name}」'
 let g:mkdp_filetypes = ['markdown']
 
+"nmap <C-s> <Plug>MarkdownPreview
+"nmap <M-s> <Plug>MarkdownPreviewStop
+"nmap <C-p> <Plug>MarkdownPreviewToggle
 "Termdebug setting
 "竖屏显示
 let g:termdebug_wide = 1
@@ -451,7 +634,7 @@ let g:rainbow_active = 1
 "\}
 ""nerdcommenter配置
 "创建默认映射
-let g:NERDCreateDefaultMappings = 1
+let g:NERDCreateDefaultMappings = 1 
 "默认情况下在注释定界符后添加空格
 "let g:NERDSpaceDelims = 1 
 "对紧凑的多行注释不使用紧凑语法
@@ -471,34 +654,55 @@ let g:startify_disable_at_vimenter = 0
 "let g:startify_custom_header =
 			"\ 'startify#center(startify#fortune#cowsay())'
 
+"let g:startify_custom_header = [
+			"\'',
+			"\'  /$$$$$$             /$$$$$$   /$$$$$$ ',
+			"\' /$$$_  $$           /$$__  $$ /$$__  $$',
+			"\'| $$$$\ $$ /$$   /$$| $$  \__/| $$  \__/',
+			"\'| $$ $$ $$|  $$ /$$/| $$      | $$      ',
+			"\'| $$\ $$$$ \  $$$$/ | $$      | $$      ',
+			"\'| $$ \ $$$  >$$  $$ | $$    $$| $$    $$',
+			"\'|  $$$$$$/ /$$/\  $$|  $$$$$$/|  $$$$$$/',
+			"\' \______/ |__/  \__/ \______/  \______/ ',
+			"\'',
+			"\''
+			"\]
+            "
+"                                                                      
 let g:startify_custom_header = [
-			\'',
-			\'  /$$$$$$             /$$$$$$   /$$$$$$ ',
-			\' /$$$_  $$           /$$__  $$ /$$__  $$',
-			\'| $$$$\ $$ /$$   /$$| $$  \__/| $$  \__/',
-			\'| $$ $$ $$|  $$ /$$/| $$      | $$      ',
-			\'| $$\ $$$$ \  $$$$/ | $$      | $$      ',
-			\'| $$ \ $$$  >$$  $$ | $$    $$| $$    $$',
-			\'|  $$$$$$/ /$$/\  $$|  $$$$$$/|  $$$$$$/',
-			\' \______/ |__/  \__/ \______/  \______/ ',
+			\'  /$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$$   /$$$$$$   /$$$$$$$  /$$$$$$$',
+			\' /$$__  $$ /$$__  $$ /$$__  $$| $$__  $$ /$$__  $$ /$$_____/ /$$_____/',
+			\'| $$$$$$$$| $$  \__/| $$  \__/| $$  \ $$| $$  \ $$| $$      | $$      ',
+			\'| $$_____/| $$      | $$      | $$  | $$| $$  | $$| $$      | $$      ',
+			\'|  $$$$$$$| $$      | $$      | $$  | $$|  $$$$$$/|  $$$$$$$|  $$$$$$$',
+			\' \_______/|__/      |__/      |__/  |__/ \______/  \_______/ \_______/',
 			\'',
 			\''
 			\]
-"nerdtree配置
-"打开nerdtree,光标在文件上
-"autocmd VimEnter * NERDTree | wincmd p
-""退出nerdtree
-"autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
-"    \ quit | endif
-"
+                                                                      
+                                                                      
+
+""nerdtree配置
+""打开nerdtree,光标在文件上
+let g:is_ide = 0
+if is_ide
+	autocmd VimEnter * NERDTree | wincmd p
+	autocmd VimEnter * call Terminal() | wincmd p
+endif
+"退出nerdtree
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+	\ quit | endif
+
 "vim-airline
 "顶部开启airline
+"let g:airline_theme='oceanicnext'
+let g:airline_theme='deus'
+let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
 "airline格式
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-"let g:airline_theme='deus'
 "let g:airline_theme='light'
 "tab键切换文件
 nmap <tab> :bn<cr>
@@ -516,15 +720,17 @@ let g:coc_global_extensions = [
 			\'coc-clangd',
 			\'coc-html',
 			\'coc-highlight',
-			\'coc-explorer',
 			\'coc-json',
 			\'coc-word',
 			\'coc-vimtex',
-			\'coc-marketplace'
+			\'coc-marketplace',
+			\'coc-translator',
+			\'coc-cmake',
+			\'coc-sh'
 			\]
 
 "coc-explorer 键位映射
-nnoremap <leader>s :CocCommand explorer<CR>
+"nnoremap <leader>s :CocCommand explorer<CR>
 
 " TextEdit might fail if hidden is not set.
 "set hidden
