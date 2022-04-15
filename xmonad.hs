@@ -58,7 +58,8 @@ myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 
 -- Border colors for unfocused and focused windows, respectively.
 --
-myNormalBorderColor  = "#282c34"
+-- myNormalBorderColor  = "#282c34"
+myNormalBorderColor  = "#003153"
 myFocusedBorderColor = "#666666" 
 --"#46d9ff"
 
@@ -74,10 +75,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_p     ), spawn "dmenu_run")
 
     -- launch gmrun
-    , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
+   , ((modm, 				xK_b     ), spawn "netease-cloud-music")
 
 	-- launch browser
-	, ((modm,               xK_g     ), spawn "google-chrome")
+	, ((modm,               xK_g     ), spawn "google-chrome-stable")
     -- close focused window
     , ((modm, 				xK_c     ), kill)
 
@@ -259,6 +260,9 @@ myLogHook = return()
 myStartupHook = do
 		spawnOnce "nitrogen --restore &"
 		spawnOnce "compton &"
+		spawnOnce "xsetroot -cursor_name left_ptr"
+		spawnOnce "ibus-daemon -drxR"
+		spawnOnce "setxkbmap -option caps:escape"
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -266,7 +270,7 @@ myStartupHook = do
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-  xmproc <- spawnPipe "xmobar -x 0 /home/errno/.config/xmobar/xmobarrc"
+  xmproc <- spawnPipe "xmobar -x 0 /home/lian/.config/xmobar/xmobarrc"
   xmonad $ docks defaults
 
 -- A structure containing your configuration settings, overriding

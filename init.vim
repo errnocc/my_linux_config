@@ -8,7 +8,7 @@ set encoding=utf-8
 
 
 set t_md=
-"hi manBold ctermfg=NONE ctermbg=NONE cterm=NONE gui=NONE
+hi manBold ctermfg=NONE ctermbg=NONE cterm=NONE gui=NONE
 
 "显示行号
 set number
@@ -44,6 +44,10 @@ set guicursor=i-ci:block-Cursor/lCursor,
 set ruler
 "去掉声响
 set vb t_vb=
+
+"更加自然打开窗口
+set splitbelow
+set splitright
 
 "设置<leader>键 = <space>
 let g:mapleader = " "
@@ -98,7 +102,7 @@ func! CompileRunGcc()
 	endif                                                                              
 endfunc 
 "终端支持
-nnoremap <leader>tm :call Terminal()<cr>a
+nnoremap <leader>te :call Terminal()<cr>a
 
 function Terminal()
 	exec 'new zsh | resize 10 | term zsh'
@@ -157,8 +161,8 @@ nnoremap <leader>o <c-o>
 nnoremap <leader>td :termdebug<cr>
 
 "翻页(disused)
-"nnoremap <leader>j <c-f>
-"nnoremap <leader>k <c-b>
+nnoremap <leader>j <c-f>
+nnoremap <leader>k <c-b>
 
 "关闭vim
 "nnoremap <leader>q :q!<CR>
@@ -191,7 +195,7 @@ nnoremap <leader>dd ddO
 
 "快速保存
 nnoremap <leader>w :w<CR>
-
+j
 "命令行显示可选项
 cnoremap <leader>h <c-d>
 
@@ -212,11 +216,16 @@ endif
 "Plugin settings
 "--------------------------------------------------------------
 "
+set nocompatible
 
 call plug#begin('~/.vim/plugged')
 
 
+"syntax highlight 
+Plug 'sheerun/vim-polyglot'
 
+"color preview
+Plug 'ap/vim-css-color'
 "table mode
 Plug 'dhruvasagar/vim-table-mode'
 
@@ -249,6 +258,8 @@ Plug 'psliwka/vim-smoothie'
 "deus themes
 Plug 'ajmwagar/vim-deus'
 
+"everforest
+Plug 'sainnhe/everforest'
 "variable-color
 Plug 'jaxbot/semantic-highlight.vim'
 
@@ -260,7 +271,7 @@ Plug 'ryanoasis/vim-devicons'
 "Plug 'ianva/vim-youdao-translater'
 
 "c++高亮
-Plug 'octol/vim-cpp-enhanced-highlight'
+"Plug 'octol/vim-cpp-enhanced-highlight'
 "Plug 'neovim/nvim-lsp'
 "Plug 'jackguo380/vim-lsp-cxx-highlight'
 "
@@ -274,17 +285,18 @@ Plug 'yggdroot/indentline'
 Plug 'yianwillis/vimcdoc'
 
 "LaTeX
-Plug 'lervag/vimtex', {'tag': 'v1.6'}
+"Plug 'lervag/vimtex', {'tag': 'v1.6'}
 "Plug 'jcf/vim-latex'
-Plug 'xuhdev/vim-latex-live-preview'
-Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
+"Plug 'xuhdev/vim-latex-live-preview'
+"Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 "Plug 'wjakob/wjakob.vim'
 ""
 "代码补全
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 "fzf模糊查找
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 "代码调试
 "Plug 'puremourning/vimspector'
@@ -293,6 +305,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mhartington/oceanic-next'
 Plug 'morhetz/gruvbox'
 Plug 'ajmwagar/vim-deus'
+Plug 'joshdick/onedark.vim'
 "Plug 'mangeshrex/uwu.vim'
 "代码小片段
 Plug 'honza/vim-snippets'
@@ -311,7 +324,6 @@ Plug 'preservim/nerdcommenter'
 
 "vim开始页面
 Plug 'mhinz/vim-startify'
-
 "彩虹括号(骚包)
 Plug 'luochen1990/rainbow'
 
@@ -320,14 +332,15 @@ Plug 'luochen1990/rainbow'
 
 
 "Markdown
-Plug 'godlygeek/tabular' "必要插件，安装在vim-markdown前面
-Plug 'plasticboy/vim-markdown'
+
+"Plug 'godlygeek/tabular' "必要插件，安装在vim-markdown前面
+"Plug 'plasticboy/vim-markdown'
 
 "光标生成目录
-Plug 'mzlogin/vim-markdown-toc'
+"Plug 'mzlogin/vim-markdown-toc'
 
 "markdown-preview
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 call plug#end()
 
@@ -359,14 +372,13 @@ let g:terminal_color_14 = '#9AEDFE'
 "let g:oceanic_next_terminal_italic = 1
 let g:one_allow_italics = 1
 " Or if you have Neovim >= 0.1.5
-"if (has("termguicolors"))
-" set termguicolors
-"endif
-"if (has("termguicolors"))
-  "set termguicolors
-"endif
+"
+if (has("termguicolors"))
+  set termguicolors
+endif
+
 "gruvboxThrme
-"set bg=dark
+set bg=dark
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -374,12 +386,30 @@ let &t_8b = "\<Esc[48;2;%lu;%lu;%lum"
 set background=dark   " dark mode
 let g:deus_termcolors=256
 
-colorscheme deus
+syntax enable
+"colorscheme deus
 "colorscheme gruvbox
-"colorscheme uwu
-"syntax enable
+"colorscheme onedark
+colorscheme everforest
 "colorscheme OceanicNext
-"colorscheme molokai
+"
+"24位色彩支持
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
 let g:airline_theme = 'bubblegum'
 
 "setting------------------------------------
@@ -445,7 +475,6 @@ set statusline+=%{NearestMethodOrFunction()}
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " How each level is indented and what to prepend.
-" This could make the display more compact or more spacious.
 " e.g., more compact: ["▸ ", ""]
 " Note: this option only works for the kind renderer, not the tree renderer.
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
@@ -521,8 +550,8 @@ let c_no_curly_error=1
 let g:rainbow_active = 1
 
 	let g:rainbow_conf = {
-	\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-	\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+	\	'guifgs': [ 'darkorange3', 'seagreen3', 'firebrick'],
+	\	'ctermfgs': ['lightyellow', 'lightcyan', 'lightmagenta'],
 	\	'operators': '_,_',
 	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
 	\	'separately': {
@@ -549,56 +578,56 @@ let g:rainbow_active = 1
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_defaultGroup = 'SpecialKey'
 
-"vimtex配置
-let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
-let g:vimtex_view_general_viewer = 'zathura'
-let g:vimtex_quickfix_mode=0
-let g:vimtex_compiler_latexmk_engines = {'_':'-xelatex'}
-let g:vimtex_compiler_latexrun_engines ={'_':'xelatex'}
-"let g:Tex_CompileRule_pdf = 'xelatex -synctex=1 --interaction=nonstopmode $*'
-
-"vim-latex
-let g:livepreview_previewer = 'zathura' 
-let g:livepreview_engine = 'xelatex'
-autocmd filetype tex setl updatetime=1
-
-"tex-conceal
-let g:tex_conceal_frac=1
-set conceallevel=2
-let g:tex_conceal='abdmg'
-let g:tex_superscripts= "[0-9a-zA-W.,:;+-<>/()=]"
-let g:tex_subscripts= "[0-9aehijklmnoprstuvx,+-/().]"
-
+""vimtex配置
+"let g:tex_flavor='latex'
+"let g:vimtex_view_method='zathura'
+"let g:vimtex_view_general_viewer = 'zathura'
+"let g:vimtex_quickfix_mode=0
+"let g:vimtex_compiler_latexmk_engines = {'_':'-xelatex'}
+"let g:vimtex_compiler_latexrun_engines ={'_':'xelatex'}
+""let g:Tex_CompileRule_pdf = 'xelatex -synctex=1 --interaction=nonstopmode $*'
+"
+""vim-latex
+"let g:livepreview_previewer = 'zathura' 
+"let g:livepreview_engine = 'xelatex'
+"autocmd filetype tex setl updatetime=1
+"
+""tex-conceal
+"let g:tex_conceal_frac=1
+"set conceallevel=2
+"let g:tex_conceal='abdmg'
+"let g:tex_superscripts= "[0-9a-zA-W.,:;+-<>/()=]"
+"let g:tex_subscripts= "[0-9aehijklmnoprstuvx,+-/().]"
+"
 "markdown-preview
-let g:mkdp_auto_start = 1
-let g:mkdp_auto_close = 1
-let g:mkdp_refresh_slow = 0
-let g:mkdp_command_for_global = 0
-let g:mkdp_open_to_the_world = 0
-let g:mkdp_open_ip = ''
-let g:mkdp_browser = 'google-chrome'
-let g:mkdp_echo_preview_url = 0
-let g:mkdp_browserfunc = ''
-let g:mkdp_preview_options = {
-			\ 'mkit': {},
-			\ 'katex': {},
-			\ 'uml': {},
-			\ 'maid': {},
-			\ 'disable_sync_scroll': 0,
-			\ 'sync_scroll_type': 'middle',
-			\ 'hide_yaml_meta': 1,
-			\ 'sequence_diagrams': {},
-			\ 'flowchart_diagrams': {},
-			\ 'content_editable': v:false,
-			\ 'disable_filename': 0
-			\ }
-let g:mkdp_markdown_css = ''
-let g:mkdp_highlight_css = ''
-let g:mkdp_port = ''
-let g:mkdp_page_title = '「${name}」'
-let g:mkdp_filetypes = ['markdown']
-
+"let g:mkdp_auto_start = 1
+"let g:mkdp_auto_close = 1
+"let g:mkdp_refresh_slow = 0
+"let g:mkdp_command_for_global = 0
+"let g:mkdp_open_to_the_world = 0
+"let g:mkdp_open_ip = ''
+"let g:mkdp_browser = 'google-chrome'
+"let g:mkdp_echo_preview_url = 0
+"let g:mkdp_browserfunc = ''
+"let g:mkdp_preview_options = {
+"            \ 'mkit': {},
+"            \ 'katex': {},
+"            \ 'uml': {},
+"            \ 'maid': {},
+"            \ 'disable_sync_scroll': 0,
+"            \ 'sync_scroll_type': 'middle',
+"            \ 'hide_yaml_meta': 1,
+"            \ 'sequence_diagrams': {},
+"            \ 'flowchart_diagrams': {},
+"            \ 'content_editable': v:false,
+"            \ 'disable_filename': 0
+"            \ }
+"let g:mkdp_markdown_css = ''
+"let g:mkdp_highlight_css = ''
+"let g:mkdp_port = ''
+"let g:mkdp_page_title = '「${name}」'
+"let g:mkdp_filetypes = ['markdown']
+"
 "nmap <C-s> <Plug>MarkdownPreview
 "nmap <M-s> <Plug>MarkdownPreviewStop
 "nmap <C-p> <Plug>MarkdownPreviewToggle
@@ -609,29 +638,28 @@ let g:termdebug_wide = 1
 "rainbow 配置
 "打开rainbow
 let g:rainbow_active = 1
-"白嫖作者的配置
-"let g:rainbow_conf = {
-"\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-"\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-"\	'operators': '_,_',
-"\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-"\	'separately': {
-"\		'*': {},
-"\		'tex': {
-"\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-"\		},
-"\		'lisp': {
-"\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-"\		},
-"\		'vim': {
-"\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-"\		},
-"\		'html': {
-"\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-"\		},
-"\		'css': 0,
-"\	}
-"\}
+let g:rainbow_conf = {
+\   'guifgs': ['darkorange3', 'seagreen3', 'royalblue3', 'firebrick'],
+\   'ctermfgs': ['lightyellow', 'lightcyan','lightblue', 'lightmagenta'],
+\   'operators': '_,_',
+\   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+\   'separately': {
+\       '*': {},
+\       'tex': {
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+\       },
+\       'lisp': {
+\           'guifgs': ['darkorange3', 'seagreen3', 'royalblue3', 'firebrick'],
+\       },
+\       'vim': {
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+\       },
+\       'html': {
+\           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+\       },
+\       'css': 0,
+\   }
+\}
 ""nerdcommenter配置
 "创建默认映射
 let g:NERDCreateDefaultMappings = 1 
@@ -681,6 +709,16 @@ let g:startify_custom_header = [
 			\]
                                                                       
                                                                       
+let g:startify_bookmarks =  [
+			\{'z': '~/.zshrc'},
+			\{'v': '~/.config/nvim/init.vim'},
+			\{'x': '~/.xmonad/xmonad.hs'},
+		    \]
+let g:startify_lists = [
+	      		\ {'header': ['BookMarks'],      'type':  'bookmarks'},
+				\ {'header': ['MRU'],            'type': 'files'},
+				\]
+nmap <leader>z :Startify<cr>
 
 ""nerdtree配置
 ""打开nerdtree,光标在文件上
@@ -715,11 +753,13 @@ let g:UltiSnipsJumpBackwardTrigger="<c-l>"
 
 "coc 插件配置(官网推荐配置)
 let g:coc_global_extensions = [
-			\'coc-python',
 			\'coc-vimlsp',
 			\'coc-clangd',
+			\'coc-cmake',
+			\'coc-calc',
 			\'coc-html',
 			\'coc-highlight',
+			\'coc-git',
 			\'coc-json',
 			\'coc-word',
 			\'coc-vimtex',
@@ -728,6 +768,11 @@ let g:coc_global_extensions = [
 			\'coc-cmake',
 			\'coc-sh'
 			\]
+" coc-calc
+" append result on current expression
+nmap <Leader>ca <Plug>(coc-calc-result-append)
+" replace result on current expression
+nmap <Leader>cr <Plug>(coc-calc-result-replace)
 
 "coc-explorer 键位映射
 "nnoremap <leader>s :CocCommand explorer<CR>
@@ -746,8 +791,7 @@ let g:coc_global_extensions = [
 " delays and poor user experience.
 set updatetime=100
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
+" Don't pass messages to |ins-completion-menu|. set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.

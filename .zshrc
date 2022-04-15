@@ -72,41 +72,55 @@ ZSH_THEME=maran
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-		git
 		vi-mode
 		z
 		sudo
 		zsh-autosuggestions
+		zsh-syntax-highlighting
 		extract
 	)
-
 source $ZSH/oh-my-zsh.sh
 #source ~/.oh-my-zsh/custom/plugins/incr/incr-0.2.zsh
 
 #java algs4
-export CLASSPATH=$CLASSPATH:/usr/local/lift/lib/algs4.jar:/usr/local/lift/lib/stdlib.jar:/usr/local/lift/lib/introcs.jar
-
+#export CLASSPATH=$CLASSPATH:/usr/local/lift/lib/algs4.jar:/usr/local/lift/lib/stdlib.jar:/usr/local/lift/lib/introcs.jar
+#mysql
+export MYSQL_HOME=/usr/local/mysql
+export PATH=$PATH:$MYSQL_HOME/bin
+#mycli
+export PATH=$PATH:/home/lian/.local/bin
 export PATH=$PATH:/usr/local/node/bin
+
+#fzf
+fzfp() {
+fzf --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always{} || rougify {}  || highlight -O ansi -l {} || coderay {} || cat {}) 2> /dev/null | head -500'
+}
+
+#ibus
+#export GTK_IM_MODULE=ibus
+#export XMODIFIERS=@im=ibus
+#export QT_IM_MODULE=ibus
+#
 # Add TeX Live to the PATH, MANPATH, INFOPATH
 #export PATH=/usr/local/texlive/2021/bin/x86_64-linux:$PATH
 #export MANPATH=/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH
 #export INFOPATH=/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH
-export RANGER_LOAD_DEFULT_RC=FALSE
-export TERM_ITALICS=true
+#export RANGER_LOAD_DEFULT_RC=FALSE
+#export TERM_ITALICS=true
 
 #gcc-11.1
-export PATH=/usr/local/gcc-11.1.0/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/gcc-11.1.0/lib64:$LD_LIBRARY_PATH
+#export PATH=/usr/local/gcc-11.1.0/bin:$PATH
+#export LD_LIBRARY_PATH=/usr/local/gcc-11.1.0/lib64:$LD_LIBRARY_PATH
 
 # To let CMake know
-export CC=/usr/local/gcc-11.1.0/bin/gcc-11.1
-export CXX=/usr/local/gcc-11.1.0/bin/g++-11.1
+#export CC=/usr/local/gcc-11.1.0/bin/gcc-11.1
+#export CXX=/usr/local/gcc-11.1.0/bin/g++-11.1
 #export FC=/usr/local/gcc-11.1.0/bin/gfortran-11.1
 
 # custom script
-export PATH=/home/errno/code/script/:$PATH
+export PATH=/home/lian/code/script/:$PATH
 #baidunetdisk
-export PATH=/opt/baidunetdisk:$PATH
+#export PATH=/opt/baidunetdisk:$PATH
 #export DISPLAY=:0
 
 #color-script
@@ -128,8 +142,8 @@ bindkey '^ ' autosuggest-accept
 #alias rm='/usr/bin/safe-rm'
 #rename vim to nvim
 alias vim=nvim
-alias gcc=gcc-11.1
-alias g++=g++-11.1
+#alias gcc=gcc-11.1
+#alias g++=g++-11.1
 #alias gdb='gdbtui -q'
 # User configuration
 
@@ -156,6 +170,6 @@ alias g++=g++-11.1
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export EDITOR=/usr/bin/vim
-#sudo systemctl restart clash@errno.service
+export EDITOR=/usr/bin/nvim
+#sudo systemctl restart clash@lian.service
 #ranger 
