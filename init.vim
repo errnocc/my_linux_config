@@ -6,10 +6,14 @@ set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
 
-
+"禁止粗体
 set t_md=
 hi manBold ctermfg=NONE ctermbg=NONE cterm=NONE gui=NONE
 
+"设置字体
+"set langmenu=en_US.UTF-8
+"set guifont=SourceCodePro\ Nerd\ Font\ 18
+"
 "显示行号
 set number
 
@@ -220,6 +224,7 @@ set nocompatible
 
 call plug#begin('~/.vim/plugged')
 
+"git perviewer Plug 'airblade/vim-gitgutter'
 
 "syntax highlight 
 Plug 'sheerun/vim-polyglot'
@@ -327,6 +332,9 @@ Plug 'mhinz/vim-startify'
 "彩虹括号(骚包)
 Plug 'luochen1990/rainbow'
 
+"icons
+Plug 'ryanoasis/vim-devicons'
+
 "vim-terminal插件
 "Plug 'skywind3000/vim-terminal-help'
 
@@ -410,7 +418,6 @@ if (empty($TMUX))
   endif
 endif
 
-let g:airline_theme = 'bubblegum'
 
 "setting------------------------------------
 "
@@ -735,6 +742,7 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 "顶部开启airline
 "let g:airline_theme='oceanicnext'
 let g:airline_theme='deus'
+"let g:airline_theme = 'bubblegum'
 let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
 "airline格式
@@ -750,6 +758,28 @@ let g:UltiSnipsExpandTrigger="<c-g>"
 let g:UltiSnipsJumpForwardTrigger="<c-h>"
 let g:UltiSnipsJumpBackwardTrigger="<c-l>"
 "let g:UltiSnipsSnippetDirectories=["~/.vim/plugged/vim-snippets/snippets"]
+
+"icons config
+let g:webdevicons_enable = 1
+" adding the flags to NERDTree
+let g:webdevicons_enable_nerdtree = 1
+" adding to vim-airline's tabline
+let g:webdevicons_enable_airline_tabline = 1
+" adding to vim-airline's statusline
+let g:webdevicons_enable_airline_statusline = 1
+" adding to vim-startify screen
+let g:webdevicons_enable_startify = 1
+" turn on/off file node glyph decorations (not particularly useful)
+let g:WebDevIconsUnicodeDecorateFileNodes = 1
+" use double-width(1) or single-width(0) glyphs
+" only manipulates padding, has no effect on terminal or set(guifont) font
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+" whether or not to show the nerdtree brackets around flags
+let g:webdevicons_conceal_nerdtree_brackets = 1
+" enable folder/directory glyph flag (disabled by default with 0)
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+" enable open and close folder/directory glyph flags (disabled by default with 0)
+let g:DevIconsEnableFoldersOpenClose = 1
 
 "coc 插件配置(官网推荐配置)
 let g:coc_global_extensions = [
