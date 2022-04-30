@@ -11,8 +11,8 @@ set t_md=
 hi manBold ctermfg=NONE ctermbg=NONE cterm=NONE gui=NONE
 
 "设置字体
-"set langmenu=en_US.UTF-8
-"set guifont=SourceCodePro\ Nerd\ Font\ 18
+set langmenu=en_US.UTF-8
+set guifont=SauceCodePro\ Nerd\ Font:h12
 "
 "显示行号
 set number
@@ -35,7 +35,7 @@ set autoindent
 set ignorecase
 
 "打开高亮
-"syntax on
+"syntax off
 
 "设置光标的为方块
 set guicursor=i-ci:block-Cursor/lCursor,
@@ -226,6 +226,12 @@ call plug#begin('~/.vim/plugged')
 
 "git perviewer Plug 'airblade/vim-gitgutter'
 
+"hex binary edit
+Plug 'fidian/hexmode'
+
+"startup time 
+Plug 'dstein64/vim-startuptime'
+
 "tree-sitter parsor
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
@@ -269,6 +275,9 @@ Plug 'psliwka/vim-smoothie'
 
 "deus themes
 Plug 'ajmwagar/vim-deus'
+
+"nord themes
+Plug 'shaunsingh/nord.nvim'
 
 "everforest
 Plug 'sainnhe/everforest'
@@ -380,10 +389,10 @@ let g:terminal_color_11 = '#F4F99D'
 let g:terminal_color_12 = '#CAA9FA'
 let g:terminal_color_13 = '#FF92D0'
 let g:terminal_color_14 = '#9AEDFE'
-"启用粗体和斜体
+"oceanic启用粗体和斜体
 "let g:oceanic_next_terminal_bold = 1
 "let g:oceanic_next_terminal_italic = 1
-let g:one_allow_italics = 1
+"let g:one_allow_italics = 1
 " Or if you have Neovim >= 0.1.5
 "
 if (has("termguicolors"))
@@ -392,18 +401,22 @@ endif
 
 "gruvboxThrme
 set bg=dark
-
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc[48;2;%lu;%lu;%lum"
-set background=dark   " dark mode
-let g:deus_termcolors=256
+"deus禁止粗体
+let g:deus_bold = 0
+let g:deus_italic = 1
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc[48;2;%lu;%lu;%lum"
+"set background=dark   " dark mode
+"let g:deus_termcolors=256
+"
 
 syntax enable
-"colorscheme deus
+colorscheme deus
 "colorscheme gruvbox
 "colorscheme onedark
-colorscheme everforest
+"colorscheme everforest
+"colorscheme nord
 "colorscheme OceanicNext
 "
 "24位色彩支持
@@ -425,6 +438,21 @@ endif
 
 
 "setting------------------------------------
+"neovide
+"
+let g:neovide_cursor_vfx_mode = "pixiedust"
+"fps
+let g:neovide_refresh_rate=144
+
+let g:neovide_no_idle=v:true
+"记住窗口
+let g:neovide_remember_window_size = v:true
+"抗锯齿
+let g:neovide_cursor_antialiasing=v:true
+"
+"
+"hex edit
+let g:hexmode_patterns = '*.bin,*.exe,*.dat,*.o,*.out,*.pcap'
 "
 "vim-esay-align config
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -550,14 +578,14 @@ vmap <Leader>r <Plug>(coc-translator-rv)
 "
 
 "cpp-highlight
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_posix_standard = 1
-let g:cpp_experimental_template_highlight = 1
-let g:cpp_concepts_highlight = 1
-let c_no_curly_error=1
-
+"let g:cpp_class_scope_highlight = 1
+"let g:cpp_member_variable_highlight = 1
+"let g:cpp_class_decl_highlight = 1
+"let g:cpp_posix_standard = 1
+"let g:cpp_experimental_template_highlight = 1
+"let g:cpp_concepts_highlight = 1
+"let c_no_curly_error=1
+"
 
 "rainbow setting
 let g:rainbow_active = 1
@@ -746,9 +774,8 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 
 "vim-airline
 "顶部开启airline
-"let g:airline_theme='oceanicnext'
-"let g:airline_theme='deus'
-let g:airline_theme='everforest'
+"let g:airline_theme='oceanicnext' let g:airline_theme='deus'
+"let g:airline_theme='everforest'
 "let g:airline_theme = 'bubblegum'
 let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
@@ -793,9 +820,9 @@ let g:coc_global_extensions = [
 			\'coc-vimlsp',
 			\'coc-clangd',
 			\'coc-floaterm',
-			\'coc-cmake',
 			\'coc-calc',
 			\'coc-html',
+			\'coc-xml',
 			\'coc-highlight',
 			\'coc-git',
 			\'coc-json',
@@ -980,4 +1007,3 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 "
 "加载lua配置
 lua require('init')
-

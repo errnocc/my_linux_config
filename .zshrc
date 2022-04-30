@@ -91,11 +91,19 @@ export PATH=$PATH:$MYSQL_HOME/bin
 export PATH=$PATH:/home/lian/.local/bin
 export PATH=$PATH:/usr/local/node/bin
 
+#zsh-syntax-highlight
+ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+
 #fzf
 fzfp() {
-fzf --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always{} || rougify {}  || highlight -O ansi -l {} || coderay {} || cat {}) 2> /dev/null | head -500'
+fzf --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (bat --style=numbers --color=always {} || rougify {}  || highlight -O ansi -l {} || coderay {} || cat {}) 2> /dev/null | head -500'
 }
 
+#colorful less
+export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
+export LESS='-R '
+#man
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 #ibus
 #export GTK_IM_MODULE=ibus
 #export XMODIFIERS=@im=ibus
@@ -146,6 +154,7 @@ alias vim=nvim
 #alias g++=g++-11.1
 #alias gdb='gdbtui -q'
 # User configuration
+alias exa='exa -l --icons'
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -161,7 +170,7 @@ alias vim=nvim
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
+#
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -173,3 +182,8 @@ alias vim=nvim
 export EDITOR=/usr/bin/nvim
 #sudo systemctl restart clash@lian.service
 #ranger 
+#neovide
+#multigrid
+export NEOVIDE_MULTIGRID
+#framelss
+export NEOVIDE_FRAMELESS
