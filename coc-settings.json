@@ -1,9 +1,8 @@
 {
 	"suggest.enablePreselect": true,
-	"suggest.enablePreview": true,
 	"suggest.noselect": false,
 	"suggest.minTriggerInputLength": 4,
-	"coc.preferences.extensionUpdateCheck": "daily",
+	"coc.preferences.extensionUpdateCheck" :"never",
 	"coc.preferences.messageLevel": "more",
 	"colors.filetypes": [
 		"*"
@@ -40,13 +39,25 @@
 		"variable": "\ue71b"
 	},
 	"codeLens.enable": true,
-	"diagnostic.displayByAle": false,
-	"clangd.path": "/usr/bin/clangd",
-	"diagnostic.checkCurrentLine": true,
 	"coc.preferences.formatOnSaveFiletypes": [
 		"json",
 		"python"
 	],
+	"diagnostic.displayByAle": false,
+	"explorer.width": 30,
+	"explorer.file.showHiddenFiles": true,
+	"explorer.icon.enableNerdfont": true,
+	"explorer.icon.source": "vim-devicons",
+	"explorer.mouseMode": "singleclick",
+	"clangd.path": "/usr/bin/clangd",
+	"clangd.arguments": [
+		"--query-driver=/usr/bin/clang++, /usr/bin/g++",
+		"--header-insertion=never",
+		"--clangd-tidy",
+		"--completion-style=bundled",
+		"--all-scopes-completion"
+	],
+	"diagnostic.checkCurrentLine": true,
 	"languageserver": {
 		"sql": {
 			"command": "sql-language-server",
@@ -59,6 +70,23 @@
 				"sql",
 				"mysql"
 			]
+		},
+		"racket": {
+			"command": "racket",
+			"args": [
+				"-l",
+				"racket-langserver"
+			],
+			"filetypes": [
+				"scheme", "rkt"
+			]
+		},
+		"haskell": {
+			"command": "haskell-language-server-wrapper",
+			"args": ["--lsp"],
+			"rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
+			"filetypes": ["haskell", "lhaskell"]
 		}
-	}
+  },
+  "Lua.telemetry.enable": true
 }
