@@ -10,12 +10,23 @@ set encoding=utf-8
 set t_md=
 hi manBold ctermfg=NONE ctermbg=NONE cterm=NONE gui=NONE
 
+"设置竖线
+set colorcolumn=150
+
+"乱码
+let &t_TI = ""
+let &t_TE = ""
+
 "设置字体
-"set langmenu=en_US.UTF-8
-"set guifont=SourceCodePro\ Nerd\ Font\ 18
+set langmenu=en_US.UTF-8
+set guifont=SauceCodePro\ Nerd\ Font:h14
 "
 "显示行号
 set number
+"set relativenumber
+"
+"去掉波浪符
+set fillchars=eob:\ 
 
 "显示当前行
 set cul
@@ -35,7 +46,7 @@ set autoindent
 set ignorecase
 
 "打开高亮
-"syntax on
+"syntax off
 
 "设置光标的为方块
 set guicursor=i-ci:block-Cursor/lCursor,
@@ -96,15 +107,15 @@ set splitbelow
 "keyboard mapping
 "---------------------------------------------------------------
 "代码调试快捷键
-map <leader>cp :call CompileRunGcc()<cr>
-func! CompileRunGcc()
-	exec "w" 
-	if &filetype == 'c' 
-		exec '!gcc -g -fdiagnostics-color -Wall % -o %<.out'
-	elseif &filetype == 'cpp'
-		exec '!g++ -g -fdiagnostics-color -Wall % -o %<.out'
-	endif                                                                              
-endfunc 
+"map <leader>cp :call CompileRunGcc()<cr>
+"func! CompileRunGcc()
+"    exec "w" 
+"    if &filetype == 'c' 
+"        exec '!gcc -g -fdiagnostics-color -Wall % -o %<.out'
+"    elseif &filetype == 'cpp'
+"        exec '!g++ -g -fdiagnostics-color -Wall % -o %<.out'
+"    endif                                                                              
+"endfunc 
 "终端支持
 nnoremap <leader>te :call Terminal()<cr>a
 
@@ -199,7 +210,7 @@ nnoremap <leader>dd ddO
 
 "快速保存
 nnoremap <leader>w :w<CR>
-j
+
 "命令行显示可选项
 cnoremap <leader>h <c-d>
 
@@ -215,7 +226,7 @@ if has("autocmd")
 endif
 
 "vimrc配置生效
-"autocmd BufWritePost $MYVIMRC source $MYVIMRC
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
 "
 "Plugin settings
 "--------------------------------------------------------------
@@ -226,16 +237,32 @@ call plug#begin('~/.vim/plugged')
 
 "git perviewer Plug 'airblade/vim-gitgutter'
 
-"syntax highlight 
-Plug 'sheerun/vim-polyglot'
+"multiple-cursors
+Plug 'terryma/vim-multiple-cursors'
+
+"hex binary edit
+Plug 'fidian/hexmode'
+
+"startup time 
+Plug 'dstein64/vim-startuptime'
+
+"tree-sitter parsor
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+"float terminal
+Plug 'voldikss/vim-floaterm'
+
+"syntax highlight(disabled)
+"Plug 'sheerun/vim-polyglot'
 
 "color preview
 Plug 'ap/vim-css-color'
+
 "table mode
 Plug 'dhruvasagar/vim-table-mode'
 
-"vim debuger
-Plug 'puremourning/vimspector'
+"vim debuger(disabeld)
+"Plug 'puremourning/vimspector'
 
 "sudo vim
 Plug 'lambdalisue/suda.vim'
@@ -252,8 +279,8 @@ Plug 'gcmt/wildfire.vim'
 "variable align
 Plug 'junegunn/vim-easy-align'
 
-"racket syntax highlight support
-Plug 'wlangstroth/vim-racket'
+"racket syntax highlight support(deperated)
+"Plug 'wlangstroth/vim-racket'
 "vista.vim
 Plug 'liuchengxu/vista.vim'
 
@@ -263,11 +290,14 @@ Plug 'psliwka/vim-smoothie'
 "deus themes
 Plug 'ajmwagar/vim-deus'
 
+"nord themes
+Plug 'shaunsingh/nord.nvim'
+
 "everforest
 Plug 'sainnhe/everforest'
+
 "variable-color
 Plug 'jaxbot/semantic-highlight.vim'
-
 
 "icon
 Plug 'ryanoasis/vim-devicons'
@@ -275,21 +305,23 @@ Plug 'ryanoasis/vim-devicons'
 "translate(replaced by coc-translate)
 "Plug 'ianva/vim-youdao-translater'
 
-"c++高亮
+"c++高亮(deperated)
 "Plug 'octol/vim-cpp-enhanced-highlight'
 "Plug 'neovim/nvim-lsp'
 "Plug 'jackguo380/vim-lsp-cxx-highlight'
 "
+"lightweight statusline
+ "Plug 'itchyny/lightline.vim'
 "缩进显示
 Plug 'yggdroot/indentline'
 
-"vim背景集合
+"vim背景集合(deperated)
 "Plug 'flazz/vim-colorschemes'
 
 "vim中文手册
 Plug 'yianwillis/vimcdoc'
 
-"LaTeX
+"LaTeX(disabled)
 "Plug 'lervag/vimtex', {'tag': 'v1.6'}
 "Plug 'jcf/vim-latex'
 "Plug 'xuhdev/vim-latex-live-preview'
@@ -303,18 +335,20 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-"代码调试
-"Plug 'puremourning/vimspector'
+"telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 "代码风格
 Plug 'mhartington/oceanic-next'
 Plug 'morhetz/gruvbox'
 Plug 'ajmwagar/vim-deus'
 Plug 'joshdick/onedark.vim'
+Plug 'junegunn/seoul256.vim'
 "Plug 'mangeshrex/uwu.vim'
-"代码小片段
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
+"代码小片段(replaced by coc-snippets)
+"Plug 'honza/vim-snippets'
+"Plug 'SirVer/ultisnips'
 
 "状态栏
 Plug 'vim-airline/vim-airline'
@@ -335,20 +369,19 @@ Plug 'luochen1990/rainbow'
 "icons
 Plug 'ryanoasis/vim-devicons'
 
-"vim-terminal插件
+"vim-terminal插件(diabled)
 "Plug 'skywind3000/vim-terminal-help'
 
 
-"Markdown
+"Markdown(diabled)
 
 "Plug 'godlygeek/tabular' "必要插件，安装在vim-markdown前面
 "Plug 'plasticboy/vim-markdown'
-
 "光标生成目录
 "Plug 'mzlogin/vim-markdown-toc'
-
 "markdown-preview
-"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+"Plug 'iamcco/markdown-preview.nvim', { 'do': \
+		"{ -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 call plug#end()
 
@@ -375,30 +408,33 @@ let g:terminal_color_11 = '#F4F99D'
 let g:terminal_color_12 = '#CAA9FA'
 let g:terminal_color_13 = '#FF92D0'
 let g:terminal_color_14 = '#9AEDFE'
-"启用粗体和斜体
+"oceanic启用粗体和斜体
 "let g:oceanic_next_terminal_bold = 1
 "let g:oceanic_next_terminal_italic = 1
-let g:one_allow_italics = 1
+"let g:one_allow_italics = 1
 " Or if you have Neovim >= 0.1.5
 "
 if (has("termguicolors"))
   set termguicolors
 endif
 
-"gruvboxThrme
 set bg=dark
-
+"deus禁止粗体
+let g:deus_bold = 0
+let g:deus_italic = 1
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc[48;2;%lu;%lu;%lum"
 set background=dark   " dark mode
 let g:deus_termcolors=256
+"
 
 syntax enable
 "colorscheme deus
-"colorscheme gruvbox
-"colorscheme onedark
+"colorscheme gruvbox colorscheme onedark
 colorscheme everforest
+"colorscheme seoul256
+"colorscheme nord
 "colorscheme OceanicNext
 "
 "24位色彩支持
@@ -420,6 +456,53 @@ endif
 
 
 "setting------------------------------------
+"smoothie
+"floaterm 
+let g:floaterm_keymap_new = '<Leader>ft'
+let g:floaterm_keymap_prev = '<Leader>ftp'
+let g:floaterm_keymap_next = '<Leader>ftn'
+let g:floaterm_keymap_toggle = '<Leader>ftt'
+
+"telescope
+"Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Using Lua functions
+"nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+"nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+"nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+"nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+"
+"multiple-cursor
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+"neovide
+"
+let g:neovide_cursor_vfx_mode = "pixiedust"
+"fps
+let g:neovide_refresh_rate=144
+
+let g:neovide_no_idle=v:true
+"记住窗口
+let g:neovide_remember_window_size = v:true
+"抗锯齿
+let g:neovide_cursor_antialiasing=v:true
+"
+"
+"hex edit
+let g:hexmode_patterns = '*.bin,*.exe,*.dat,*.o,*.out,*.pcap'
 "
 "vim-esay-align config
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -435,15 +518,16 @@ nmap ga <Plug>(EasyAlign)
 
 
 " haskell-vim config
-filetype plugin indent on
-let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
-let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
-let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
-let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
-let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 
+"filetype plugin indent on
+"let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+"let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+"let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+"let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+"let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+"let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+"let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+"
 " cscope setting
 
 if has("cscope")
@@ -469,17 +553,17 @@ nmap <C-@>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
 "vista.vim
 
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
-
-set statusline+=%{NearestMethodOrFunction()}
+"function! NearestMethodOrFunction() abort
+"  return get(b:, 'vista_nearest_method_or_function', '')
+"endfunction
+"
+"set statusline+=%{NearestMethodOrFunction()}
 
 " By default vista.vim never run if you don't call it explicitly.
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+"autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 " How each level is indented and what to prepend.
 " e.g., more compact: ["▸ ", ""]
@@ -516,14 +600,14 @@ let g:vista#renderer#enable_icon = 1
 " The default icons can't be suitable for all the filetypes, you can extend it as you wish.
 let g:vista#renderer#icons = {
 \   "function": "\uf794",
-\   "variable": "\u1793",
+\   "variable": "\uf73f",
 \  }
 
-
+"变量高亮(replaced by treesitter)
 "semantic setiing
 "autocmd BufEnter * SemanticHighlight
 "autocmd BufWritePost * SemanticHighlight
-nnoremap <Leader>s :SemanticHighlightToggle<cr>
+"nnoremap <Leader>s :SemanticHighlightToggle<cr>
 
 "vim-translate
 "vnoremap <silent> <C-T> :<C-u>Ydv<CR>
@@ -544,14 +628,14 @@ vmap <Leader>r <Plug>(coc-translator-rv)
 "
 
 "cpp-highlight
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_posix_standard = 1
-let g:cpp_experimental_template_highlight = 1
-let g:cpp_concepts_highlight = 1
-let c_no_curly_error=1
-
+"let g:cpp_class_scope_highlight = 1
+"let g:cpp_member_variable_highlight = 1
+"let g:cpp_class_decl_highlight = 1
+"let g:cpp_posix_standard = 1
+"let g:cpp_experimental_template_highlight = 1
+"let g:cpp_concepts_highlight = 1
+"let c_no_curly_error=1
+"
 
 "rainbow setting
 let g:rainbow_active = 1
@@ -578,8 +662,6 @@ let g:rainbow_active = 1
 	\		'css': 0,
 	\	}
 	\}
-
-
 
 "indentline setting
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
@@ -664,7 +746,7 @@ let g:rainbow_conf = {
 \       'html': {
 \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
 \       },
-\       'css': 0,
+\       'css': 0
 \   }
 \}
 ""nerdcommenter配置
@@ -717,9 +799,12 @@ let g:startify_custom_header = [
                                                                       
                                                                       
 let g:startify_bookmarks =  [
+			\{'a': '~/.config/alacritty/alacritty.yml'},
 			\{'z': '~/.zshrc'},
 			\{'v': '~/.config/nvim/init.vim'},
 			\{'x': '~/.xmonad/xmonad.hs'},
+			\{'c': '~/.config/nvim/coc-settings.json'},
+			\{'l': '~/.config/nvim/lua/init.lua'}
 		    \]
 let g:startify_lists = [
 	      		\ {'header': ['BookMarks'],      'type':  'bookmarks'},
@@ -740,8 +825,9 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 
 "vim-airline
 "顶部开启airline
-"let g:airline_theme='oceanicnext'
+"let g:airline_theme='oceanicnext' 
 let g:airline_theme='deus'
+"let g:airline_theme='everforest'
 "let g:airline_theme = 'bubblegum'
 let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
@@ -749,14 +835,22 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
+"let g:airline#extensions#tabline#formatter = 'default'
 "let g:airline_theme='light'
+"
+"lightweight statusline
+"let g:lightline = {
+"      \ 'colorscheme': 'deus',
+"      \ }
+"
 "tab键切换文件
 nmap <tab> :bn<cr>
 
+
 "vim-snips
-let g:UltiSnipsExpandTrigger="<c-g>"
-let g:UltiSnipsJumpForwardTrigger="<c-h>"
-let g:UltiSnipsJumpBackwardTrigger="<c-l>"
+"let g:UltiSnipsExpandTrigger="<c-g>"
+"let g:UltiSnipsJumpForwardTrigger="<c-h>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-l>"
 "let g:UltiSnipsSnippetDirectories=["~/.vim/plugged/vim-snippets/snippets"]
 
 "icons config
@@ -785,28 +879,45 @@ let g:DevIconsEnableFoldersOpenClose = 1
 let g:coc_global_extensions = [
 			\'coc-vimlsp',
 			\'coc-clangd',
-			\'coc-cmake',
+			\'coc-floaterm',
 			\'coc-calc',
 			\'coc-html',
+			\'coc-xml',
 			\'coc-highlight',
 			\'coc-git',
 			\'coc-json',
 			\'coc-word',
 			\'coc-vimtex',
 			\'coc-marketplace',
+			\'coc-hls',
+			\'coc-rust-analyzer',
+			\'coc-toml',
 			\'coc-translator',
 			\'coc-cmake',
-			\'coc-sh'
+			\'coc-sh',
+			\'coc-explorer',
 			\]
+
+" coc-explorer
+nmap <leader>ex <Cmd>CocCommand explorer<CR>
+" Use preset argument to open it
+nmap <space>ed <Cmd>CocCommand explorer --preset .vim<CR>
+nmap <space>ef <Cmd>CocCommand explorer --preset floating<CR>
+nmap <space>ec <Cmd>CocCommand explorer --preset cocConfig<CR>
+nmap <space>eb <Cmd>CocCommand explorer --preset buffer<CR>
+
+let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
+" List all presets
+nmap <space>el <Cmd>CocList explPresets<CR>
+
 " coc-calc
 " append result on current expression
 nmap <Leader>ca <Plug>(coc-calc-result-append)
 " replace result on current expression
 nmap <Leader>cr <Plug>(coc-calc-result-replace)
 
-"coc-explorer 键位映射
-"nnoremap <leader>s :CocCommand explorer<CR>
 
+" coc config. Copyed from github
 " TextEdit might fail if hidden is not set.
 "set hidden
 
@@ -835,11 +946,18 @@ endif
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <C-x><C-z> coc#pum#visible() ? coc#pum#stop() : "\<C-x>\<C-z>"
+" remap for complete to use tab and <cr>
 inoremap <silent><expr> <TAB>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<TAB>" :
+			\ coc#pum#visible() ? coc#pum#next(1):
+			\ <SID>check_back_space() ? "\<Tab>" :
 			\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <c-space> coc#refresh()
+
+hi CocSearch ctermfg=12 guifg=#18A3FF
+hi CocMenuSel ctermbg=109 guibg=#13354A
 
 function! s:check_back_space() abort
 	let col = col('.') - 1
@@ -852,11 +970,6 @@ if has('nvim')
 else
 	inoremap <silent><expr> <c-@> coc#refresh()
 endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-			\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 "使用<leader>ek和<leader>ej上下定位错误
 nmap <silent> <leader>ek <Plug>(coc-diagnostic-prev)
@@ -969,3 +1082,8 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 "nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 "
 "
+"python3								 
+let g:python3_host_prog = '/bin/python3'
+"
+"加载lua配置
+lua require('init')
