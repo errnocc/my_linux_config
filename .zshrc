@@ -11,6 +11,7 @@ export ZSH=$HOME/.oh-my-zsh
 #ZSH_THEME="simple"
 
 ZSH_THEME=maran
+#ZSH_THEME=tjkirch_mod
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -82,17 +83,17 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 #source ~/.oh-my-zsh/custom/plugins/incr/incr-0.2.zsh
 
-#java algs4
-#export CLASSPATH=$CLASSPATH:/usr/local/lift/lib/algs4.jar:/usr/local/lift/lib/stdlib.jar:/usr/local/lift/lib/introcs.jar
 #mysql
 export MYSQL_HOME=/usr/local/mysql
 export PATH=$PATH:$MYSQL_HOME/bin
 #mycli
 export PATH=$PATH:/home/lian/.local/bin
-export PATH=$PATH:/usr/local/node/bin
+#export PATH=$PATH:/usr/local/node/bin
 
 #zsh-syntax-highlight
 ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+#zsh-autosuggestions-highlight
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=243"
 
 #fzf
 fzfp() {
@@ -103,58 +104,48 @@ fzf --preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || 
 export LESSOPEN="| /usr/bin/source-highlight-esc.sh %s"
 export LESS='-R '
 #man
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-#ibus
-#export GTK_IM_MODULE=ibus
-#export XMODIFIERS=@im=ibus
-#export QT_IM_MODULE=ibus
-#
-# Add TeX Live to the PATH, MANPATH, INFOPATH
-#export PATH=/usr/local/texlive/2021/bin/x86_64-linux:$PATH
-#export MANPATH=/usr/local/texlive/2021/texmf-dist/doc/man:$MANPATH
-#export INFOPATH=/usr/local/texlive/2021/texmf-dist/doc/info:$INFOPATH
-#export RANGER_LOAD_DEFULT_RC=FALSE
-#export TERM_ITALICS=true
-
-#gcc-11.1
-#export PATH=/usr/local/gcc-11.1.0/bin:$PATH
-#export LD_LIBRARY_PATH=/usr/local/gcc-11.1.0/lib64:$LD_LIBRARY_PATH
-
-# To let CMake know
-#export CC=/usr/local/gcc-11.1.0/bin/gcc-11.1
-#export CXX=/usr/local/gcc-11.1.0/bin/g++-11.1
-#export FC=/usr/local/gcc-11.1.0/bin/gfortran-11.1
-
+# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export TERM=xterm-256color
 # custom script
-export PATH=/home/lian/code/script/:$PATH
-#baidunetdisk
-#export PATH=/opt/baidunetdisk:$PATH
-#export DISPLAY=:0
+#export PATH=/home/lian/code/script/:$PATH
+export DEBUGINFOD_URLS="https://debuginfod.archlinux.org"
 
+#doom emacs
+export PATH=/home/lian/.emacs.d/bin/:$PATH
 #color-script
 #colorscript random
-
-#00default.sh
 
 #export http_proxy="http://127.0.0.1:7890"
 #export https_proxy="http://127.0.0.1:7890"
 #screenfetch
- 
-bindkey '^ ' autosuggest-accept
+#
+#rustup mirror
+#export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+#
+#link path
 
+bindkey '^o' autosuggest-accept
 
 #ranger
 #keyword mapping
+#
 #xmodmap ~/.Xmodmap
 #safe-rm
-#alias rm='/usr/bin/safe-rm'
+alias rm='/usr/bin/safe-rm'
 #rename vim to nvim
 alias vim=nvim
-#alias gcc=gcc-11.1
-#alias g++=g++-11.1
-#alias gdb='gdbtui -q'
 # User configuration
 alias exa='exa -l --icons'
+alias btm='btm --color gruvbox'
+
+case ":${PATH}:" in
+    *:"$HOME/.cargo/bin":*)
+        ;;
+    *)
+        # Prepending path in case a system-installed rustc needs to be overridden
+        export PATH="$HOME/.cargo/bin:$PATH"
+        ;;
+esac
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -187,3 +178,6 @@ export EDITOR=/usr/bin/nvim
 export NEOVIDE_MULTIGRID
 #framelss
 export NEOVIDE_FRAMELESS
+
+source /usr/share/doc/mcfly/mcfly.zsh
+#source /home/lian/.config/broot/launcher/bash/br
