@@ -1,0 +1,55 @@
+live_config_reload = true
+
+[window]
+startup_mode = "Maximized"
+padding = { x = 2, y = 2}
+
+[scrolling]
+history = 10000
+multiplier = 10
+
+[font]
+normal = {family = "CaskaydiaCove NF", style = "Regular"}
+bold = {family = "CaskaydiaCove NF", style = "Bold"}
+italic = {family = "CaskaydiaCove NF", style = "Italic"}
+bold_italic = {family = "CaskaydiaCove NF", style = "Bold Italic"}
+size = 13
+offset = { x = 0, y = 0}
+glyph_offset = { x = 0, y = 0}
+
+[colors]
+draw_bold_text_with_bright_colors = true
+cursor = { text = "#AD7FA8", cursor = "CellForeground"}
+[colors.primary]
+background = "#21252d"
+foreground = "#dcdcdc"
+[colors.normal]
+black = "#2c323b"
+red = "#BF616A"
+green = "#A3BE8C"
+yellow = "#EBCB8B"
+blue = "#81A1C1"
+magenta = "#B48EAD"
+cyan = "#88C0D0"
+white = "#dcdcdc"
+[colors.bright]
+black = "#2c323b"
+red = "#e06c75"
+green = "#98c379"
+yellow = "#ebcb8b"
+blue = "#81a1c1"
+magenta = "#b483ad"
+cyan = "#8fbcbb"
+white = "#ECEFF4"
+
+[cursor]
+unfocused_hollow = true
+
+[selection]
+save_to_clipboard = true
+
+[keyboard]
+bindings = [
+{key = "C", mods = "Command|Shift", action = "Copy"},
+{key = "V", mods = "Command|Shift", action = "Paste"}
+]
