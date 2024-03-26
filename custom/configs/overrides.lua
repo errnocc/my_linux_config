@@ -70,4 +70,14 @@ M.nvimtree = {
   },
 }
 
+M.cmp = {
+    sources = {
+    -- other sources
+    {
+      name = "dictionary",
+      keyword_length = 2,
+    },
+  },
+}
+
 return M
