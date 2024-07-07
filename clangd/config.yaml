@@ -1,0 +1,58 @@
+If:
+  PathMatch: ~/Code/cpp/example/.*
+
+CompileFlags:
+  Add: [-xc++, -Wall, -Wpedantic, -std=c++23, -I ~/Code/cpp/example/, -ferror-limit=100]
+  Remove: -W*
+  Compiler: /usr/bin/clang++
+
+Index:
+  StandardLibrary: No
+
+Diagnostics:
+  ClangTidy:
+    Add:
+      - bugprone*
+      - clang-analyzer*
+      - google*
+      - boost*
+      - modernize*
+      - performance*
+      - portability*
+      - readability*
+      - cppcoreguidelines*
+    Remove: 
+      - modernize-use-trailing-return-type
+      - readability-magic-numbers
+      - cppcoreguidelines-avoid-magic-numbers
+    CheckOptions: 
+      readability-identifier-naming.AbstractClassCase: lower_case
+      readability-identifier-naming.VariableCase: lower_case
+      readability-identifier-naming.ClassCase: lower_case
+      readability-identifier-naming.ConceptCase: lower_case
+      readability-identifier-naming.EnumCase: lower_case
+      readability-identifier-naming.FunctionCase: lower_case
+      readability-identifier-naming.GlobalConstantCase: UPPER_CASE
+      readability-identifier-naming.MemberCase: lower_case
+      readability-identifier-naming.MemberSuffix: _
+      readability-identifier-naming.MacroDefinitionCase: UPPER_CASE
+      readability-identifier-naming.NamespaceCase: lower_case
+      readability-identifier-naming.StructCase: lower_case
+      readability-identifier-naming.UnionCase: lower_case
+      readability-identifier-naming.VariableCase: lower_case
+    FastCheckFilter: Loose
+    # IgnoreHeader: []
+InlayHints:
+  BlockEnd: Yes
+  Designators: Yes
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
+  TypeNameLimit: 24
+
+Hover:
+  ShowAKA: Yes
+
+SemanticTokens:
+  DisabledKinds: []
+  DisabledModifiers: []
