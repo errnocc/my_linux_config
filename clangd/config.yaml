@@ -1,8 +1,8 @@
 If:
-  PathMatch: ~/Code/cpp/example/.*
+  PathMatch: /home/lian/Code/cpp/example/.*
 
 CompileFlags:
-  Add: [-xc++, -Wall, -Wpedantic, -std=c++23, -I ~/Code/cpp/example/, -ferror-limit=100]
+  Add: [-xc++, -Wall, -Wpedantic, -Wthread-safety, -Wlifetime, -std=c++23, -I /home/lian/example/, -ferror-limit=100]
   Remove: -W*
   Compiler: /usr/bin/clang++
 

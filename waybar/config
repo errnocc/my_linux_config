@@ -3,7 +3,7 @@
     "position": "top", 
     "height": 36, 
     "spacing": 6,
-    "modules-left": ["custom/wl-gammarelay-brightness","custom/wl-gammarelay-temperature","hyprland/window"],
+    "modules-left": ["custom/launcher","disk", "custom/wl-gammarelay-brightness","custom/wl-gammarelay-temperature","hyprland/window"],
     "modules-center": ["hyprland/workspaces"],
     "modules-right": ["tray", "network", "pulseaudio", "memory", "cpu", "clock"],
     "hyprland/workspaces": {
@@ -12,8 +12,9 @@
             "*": 10
         },
         "on-click": "activate",
-        "on-scroll-up": "hyprctl dispatch workspace e+1",
-        "on-scroll-down": "hyprctl dispatch workspace e-1"
+        "on-click-right": "pavucontrol",
+        "on-scroll-up": "hyprctl dispatch workspace e-1",
+        "on-scroll-down": "hyprctl dispatch workspace e+1"
     },
     "hyprland/window": {
         "format": "\uf061 {initialTitle}",
@@ -41,10 +42,18 @@
         "tooltip-format": "RAM: {used:5}G / {total}G\nSwap: {swapUsed:4}G / {swapTotal:4}G",
         "max-length": 12
     },
+    "disk": {
+        "interval": 300,
+        "format": "\uf1c0  {specific_free:0.2f}GiB",
+        "path": "/home",
+        "unit": "GiB"
+
+            // 0.25 GB out of 2000.00 GB available. Alternatively 241.3MiB out of 1.9TiB available.
+    },
     "network": {
         "interval": 1,
         "format-wifi": "\uf05a9 {essid} ({signalStrength}%)",
-        "format-ethernet": "\uf0aa {bandwidthUpBits:>} \uf0ab {bandwidthDownBits:>}",
+        "format-ethernet": "\uf0aa {bandwidthUpBytes:>} \uf0ab {bandwidthDownBytes:>}",
         "format-linked": "\uf059f No IP ({ifname})",
         "format-disconnected": "\uf071 Disconnected",
         "tooltip-format": "{ifname} {ipaddr}/{cidr} via {gwaddr}",
@@ -52,7 +61,7 @@
         "max-length": 24
     },
     "pulseaudio": {
-        "scroll-step": 5,
+        "scroll-step": 1,
         "format": "{icon} {volume}%",
         "format-muted": "\uf6a9",
         "format-bluetooth": "{icon} \uf294  {volume}%",
@@ -74,5 +83,10 @@
         "exec": "wl-gammarelay-rs watch {bp}",
         "on-scroll-up": "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d +0.02",
         "on-scroll-down": "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d -0.02"
+    },
+    "custom/launcher":{
+        "format": " ",
+        "on-click": "rofi -show drun",
+        "on-click-right": "killall rofi"
     }
 }

@@ -4,7 +4,7 @@
     font-weight: 500;
     font-size: 16px;
 
-    border-radius: 18px;
+    border-radius: 10px;
     text-shadow: none;
    
     transition-property: background;
@@ -26,9 +26,11 @@ window#waybar.hidden {
 #pulseaudio,
 #tray,
 #mode,
+#disk,
 #window,
 #custom-wl-gammarelay-temperature,
 #custom-wl-gammarelay-brightness,
+#custom-launcher,
 #workspaces {
     margin-top: 6px;
     padding: 0 12px;
@@ -87,38 +89,49 @@ window#waybar.hidden {
 }
 
 #clock {
-    background-color: #eefff1;
-    color: #000000;
+    color: #eefff1;
+    background-color: #000000;
 }
 
 #cpu {
-    background-color: #fe968b;
-    color: #000000;
+    color: #fe968b;
+    background-color: #000000;
 }
 
 #memory {
-    background-color: #ffeaaa;
-    color: #000000;
+    color: #ffeaaa;
+    background-color: #000000;
 }
 
 #pulseaudio {
-    background-color: #b0f5e5;
-    color: #000000;
+    color: #b0f5e5;
+    background-color: #000000;
 }
 
 #network {
-    background-color: #a4e4fe;
-    color: #000000;
+    color: #a4e4fe;
+    background-color: #000000;
 }
 
 #custom-wl-gammarelay-temperature {
-    background-color: #abe9b3;
-    color: #000000;
+    color: #abe9b3;
+    background-color: #000000;
 }
 
 #custom-wl-gammarelay-brightness {
-    background-color: #e8a2af;
-    color: #000000;
+    color: #e8a2af;
+    background-color: #000000;
+}
+
+#custom-launcher{
+    color: #89dceb;
+    background-color: #000000;
+}
+
+
+#disk {
+    color: #987d9a;
+    background-color: #000000;
 }
 
 #tray {
@@ -129,6 +142,6 @@ window#waybar.hidden {
 #window {
     font-family: "CaskaydiaCove NF";
     font-weight: 400;
-    background-color: #cbecff;
-    color: #000000;
+    color: #cbecff;
+    background-color: #000000;
 }
