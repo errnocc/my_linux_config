@@ -31,6 +31,8 @@ window#waybar.hidden {
 #custom-wl-gammarelay-temperature,
 #custom-wl-gammarelay-brightness,
 #custom-launcher,
+#custom-fan,
+#temperature,
 #workspaces {
     margin-top: 6px;
     padding: 0 12px;
@@ -66,7 +68,7 @@ window#waybar.hidden {
 
 #workspaces button.active {
     background: #f0f7ff;
-    color: #1f1f1f;
+    color: #0f1f1f;
 }
 
 #workspaces button.urgent {
@@ -89,48 +91,58 @@ window#waybar.hidden {
 }
 
 #clock {
-    color: #eefff1;
+    color: #f4dbd6;
+    background-color: #000000;
+}
+
+#temperature{
+    color: #ee99a0;
     background-color: #000000;
 }
 
 #cpu {
-    color: #fe968b;
+    color: #f5a97f;
     background-color: #000000;
 }
 
 #memory {
-    color: #ffeaaa;
+    color: #eed49f;
     background-color: #000000;
 }
 
 #pulseaudio {
-    color: #b0f5e5;
+    color: #8bd5ca;
     background-color: #000000;
 }
 
 #network {
-    color: #a4e4fe;
+    color: #91d7e3;
     background-color: #000000;
 }
 
 #custom-wl-gammarelay-temperature {
-    color: #abe9b3;
+    color: #7dc4e4;
     background-color: #000000;
 }
 
 #custom-wl-gammarelay-brightness {
-    color: #e8a2af;
+    color: #8aadf4;
     background-color: #000000;
 }
 
 #custom-launcher{
-    color: #89dceb;
+    color: #cad3f5;
+    background-color: #000000;
+}
+
+#custom-fan{
+    color: #ed8796;
     background-color: #000000;
 }
 
 
 #disk {
-    color: #987d9a;
+    color: 	#b7bdf8;
     background-color: #000000;
 }
 

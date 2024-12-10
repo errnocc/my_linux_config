@@ -5,7 +5,7 @@
     "spacing": 6,
     "modules-left": ["custom/launcher","disk", "custom/wl-gammarelay-brightness","custom/wl-gammarelay-temperature","hyprland/window"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["tray", "network", "pulseaudio", "memory", "cpu", "clock"],
+    "modules-right": ["tray", "network", "pulseaudio", "memory", "cpu", "temperature","custom/fan", "clock"],
     "hyprland/workspaces": {
         "format": "{name}",
         "persistent-workspaces": {
@@ -72,21 +72,34 @@
         "on-click-right": "pavucontrol",
         "ignored-sinks": ["AudioRelay Virtual Sink", "Recorder Sink"]
     },
+    "temperature": {
+        "thermal-zone": 0,
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        "format-critical": "  {temperatureC}°C",
+        "format": " {temperatureC}°C",
+        "interval": 10,
+    },
     "custom/wl-gammarelay-temperature": {
-        "format": "\uf4ee  {}t",
+        "format": "  {}t",
         "exec": "wl-gammarelay-rs watch {t}",
         "on-scroll-up": "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n +100",
         "on-scroll-down": "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateTemperature n -100"
     },
     "custom/wl-gammarelay-brightness": {
-        "format": "\uf0eb  {}%",
+        "format": " {}%",
         "exec": "wl-gammarelay-rs watch {bp}",
         "on-scroll-up": "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d +0.02",
         "on-scroll-down": "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d -0.02"
     },
     "custom/launcher":{
         "format": " ",
-        "on-click": "rofi -show drun",
+        "on-click": "/home/lian/.config/rofi/launchers/type-5/launcher.sh",
         "on-click-right": "killall rofi"
+    },
+    "custom/fan": {
+        "exec": "sensors | awk '/fan1:/ {print $2}'",
+        "format": "  {} rpm",
+        "interval": 10,
     }
 }
