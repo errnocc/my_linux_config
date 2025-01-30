@@ -32,6 +32,8 @@ window#waybar.hidden {
 #custom-wl-gammarelay-brightness,
 #custom-launcher,
 #custom-fan,
+#custom-weather,
+#bluetooth,
 #temperature,
 #workspaces {
     margin-top: 6px;
@@ -95,6 +97,17 @@ window#waybar.hidden {
     background-color: #000000;
 }
 
+#custom-weather{
+    color: #c6a0f6;
+    background-color: #000000;
+}
+
+
+#custom-fan{
+    color: #ed8796;
+    background-color: #000000;
+}
+
 #temperature{
     color: #ee99a0;
     background-color: #000000;
@@ -120,29 +133,28 @@ window#waybar.hidden {
     background-color: #000000;
 }
 
-#custom-wl-gammarelay-temperature {
+#bluetooth {
     color: #7dc4e4;
     background-color: #000000;
 }
 
-#custom-wl-gammarelay-brightness {
+#custom-wl-gammarelay-temperature {
     color: #8aadf4;
     background-color: #000000;
 }
 
-#custom-launcher{
-    color: #cad3f5;
+#custom-wl-gammarelay-brightness {
+    color: #b7bdf8;
     background-color: #000000;
 }
-
-#custom-fan{
-    color: #ed8796;
-    background-color: #000000;
-}
-
 
 #disk {
     color: 	#b7bdf8;
+    background-color: #000000;
+}
+
+#custom-launcher{
+    color: #8087a2;
     background-color: #000000;
 }
 

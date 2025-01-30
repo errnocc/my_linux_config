@@ -3,9 +3,9 @@
     "position": "top", 
     "height": 36, 
     "spacing": 6,
-    "modules-left": ["custom/launcher","disk", "custom/wl-gammarelay-brightness","custom/wl-gammarelay-temperature","hyprland/window"],
+    "modules-left": ["custom/launcher","disk", "custom/wl-gammarelay-brightness","custom/wl-gammarelay-temperature","bluetooth","pulseaudio", "hyprland/window"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": ["tray", "network", "pulseaudio", "memory", "cpu", "temperature","custom/fan", "clock"],
+    "modules-right": ["tray", "network", "memory", "cpu", "temperature","custom/fan", "custom/weather", "clock"],
     "hyprland/workspaces": {
         "format": "{name}",
         "persistent-workspaces": {
@@ -80,6 +80,17 @@
         "format": " {temperatureC}°C",
         "interval": 10,
     },
+    "bluetooth": {
+    	"format": " {status}",
+        "on-click": "bash -c /home/lian/Code/bash/bluetooth.sh",
+    	"format-connected": " {device_alias}",
+    	"format-connected-battery": " {device_alias} {device_battery_percentage}%",
+    	"format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+    	"tooltip-format": "controller {num_connections} connected",
+    	"tooltip-format-connected": "{controller_alias} {controller_address}\n{num_connections} connected\n{device_enumerate}",
+    	"tooltip-format-enumerate-connected": "{device_alias} {device_address}",
+    	"tooltip-format-enumerate-connected-battery": "{device_alias} {device_address} {device_battery_percentage}%"
+    },
     "custom/wl-gammarelay-temperature": {
         "format": "  {}t",
         "exec": "wl-gammarelay-rs watch {t}",
@@ -101,5 +112,12 @@
         "exec": "sensors | awk '/fan1:/ {print $2}'",
         "format": "  {} rpm",
         "interval": 10,
+    },
+    "custom/weather": {
+      "exec": "wttrbar --location Chengdu --nerd",
+      "restart-interval": 3600,
+      "tooltip": true,
+      "format": "{}°",
+      "return-type": "json",
     }
 }
